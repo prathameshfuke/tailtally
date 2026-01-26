@@ -1,5 +1,7 @@
 # Pet Budget Buddy
 
+[![](https://img.shields.io/badge/Live-Demo-brightgreen)](https://tailtally.vercel.app/)
+
 A comprehensive application to help you track and manage your pet's expenses, ensuring you stay within budget while giving them the best care.
 
 ## 🌟 Capabilities & Use Cases
@@ -89,5 +91,7 @@ This project is built with a modern stack for performance and developer experien
    ```
 
 ### Deployment
+
+You can view the live application here: [https://tailtally.vercel.app/](https://tailtally.vercel.app/)
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
