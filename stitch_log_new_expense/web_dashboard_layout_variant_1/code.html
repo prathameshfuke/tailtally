@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pet Manager - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#131118] dark:text-white min-h-screen">
+<!-- Top AppBar -->
+<header class="sticky top-0 z-40 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-white/10">
+<div class="flex items-center p-4 justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary rounded-full size-10 flex items-center justify-center overflow-hidden border-2 border-white dark:border-gray-800 shadow-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-full" data-alt="Close up photo of a fluffy golden retriever puppy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB53pXk3aV_30-GXU24R8nrCofrZBWRZbxIu0j2pq-Mi2cZdii9fFtSE2dp9N1RrUwS7Res69CiTk_C7xudMh3TqgnMijUadb1BwU1oVoyPMHgZ5YnN8fStdpYNACIFB40tPuVbGEczeIq_v5pbwF9nafRDUDDQZ2k3uwgM6Iq3E_ChMrxLR6K1nM2CoVstAyFZCsTGWNzM-wjMUvim1YxZcMSQYkcdND9m9wVnYMaYS-8et1TJb8ks-8-Xr_rvRSUk_A1AlxZ_jjQ");'></div>
+</div>
+<div>
+<h2 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Buddy's Wallet</h2>
+<p class="text-xs text-gray-500 dark:text-gray-400">Golden Retriever</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-white/10 shadow-sm text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pb-24">
+<!-- Section Header -->
+<div class="px-4 pt-6 pb-2">
+<h2 class="text-[#131118] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Financial Overview</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Your pet spending for October</p>
+</div>
+<!-- Stats Grid -->
+<div class="flex flex-wrap gap-4 p-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">payments</span>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">Total Spent</p>
+</div>
+<p class="text-[#131118] dark:text-white tracking-light text-2xl font-extrabold leading-tight">$425.50</p>
+<div class="flex items-center gap-1">
+<span class="text-[#078845] text-xs font-bold leading-normal">+12%</span>
+<span class="text-gray-400 text-[10px]">vs last month</span>
+</div>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">account_balance_wallet</span>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">Monthly Budget</p>
+</div>
+<p class="text-[#131118] dark:text-white tracking-light text-2xl font-extrabold leading-tight">$600.00</p>
+<div class="flex items-center gap-1">
+<span class="text-primary text-xs font-bold leading-normal">70% used</span>
+</div>
+</div>
+</div>
+<!-- Interactive Doughnut Chart (Simulated) -->
+<div class="px-4 py-2">
+<div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-white/10 shadow-sm">
+<h3 class="text-[#131118] dark:text-white text-lg font-bold mb-6">Category Breakdown</h3>
+<div class="relative flex justify-center items-center py-4">
+<!-- Simple CSS Doughnut Simulation -->
+<div class="relative size-48 rounded-full border-[20px] border-primary/10 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[20px] border-primary border-t-transparent border-r-transparent -rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[20px] border-orange-400 border-l-transparent border-b-transparent rotate-12"></div>
+<div class="text-center">
+<p class="text-gray-400 text-xs font-bold uppercase tracking-wider">Top Spend</p>
+<p class="text-[#131118] dark:text-white text-xl font-extrabold">Food</p>
+<p class="text-primary text-sm font-bold">$180.00</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-primary"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Food (42%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-orange-400"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Vet (28%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-blue-400"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Toys (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-pink-400"></div>
+<span class="text-sm text-gray-600 dark:text-gray-300">Other (15%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Budget Progress List -->
+<div class="px-4 py-6">
+<h3 class="text-[#131118] dark:text-white text-lg font-bold mb-4">Budget Progress</h3>
+<div class="space-y-4">
+<div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="text-[#131118] dark:text-white font-bold">Food &amp; Treats</p>
+<p class="text-xs text-gray-400">$180 of $200</p>
+</div>
+<span class="text-xs font-bold text-orange-500">90%</span>
+</div>
+<div class="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-orange-500 rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="text-[#131118] dark:text-white font-bold">Healthcare</p>
+<p class="text-xs text-gray-400">$120 of $250</p>
+</div>
+<span class="text-xs font-bold text-[#078845]">48%</span>
+</div>
+<div class="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-[#078845] rounded-full" style="width: 48%"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="text-[#131118] dark:text-white font-bold">Grooming &amp; Toys</p>
+<p class="text-xs text-gray-400">$125.5 of $150</p>
+</div>
+<span class="text-xs font-bold text-primary">83%</span>
+</div>
+<div class="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 83%"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (iOS Style) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-background-dark/90 backdrop-blur-xl border-t border-gray-100 dark:border-white/10 px-6 py-3 flex justify-between items-center z-50">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined font-bold">dashboard</span>
+<span class="text-[10px] font-bold">Overview</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-medium">Expenses</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined">pets</span>
+<span class="text-[10px] font-medium">Pets</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[10px] font-medium">Analytics</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</div>
+</nav>
+<!-- Navigation Drawer (Hidden by default, used for desktop layout logic in prompt) -->
+<div class="hidden absolute left-0 top-0 z-50 size-full min-h-screen bg-[#141414]/40">
+<div class="flex h-full min-h-screen w-10/12 flex-col gap-4 bg-white dark:bg-gray-900 p-4">
+<p class="text-[#131118] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Pet Manager</p>
+<ul class="flex flex-col gap-2">
+<li class="flex h-12 items-center gap-4 rounded-xl px-4 bg-primary/10 text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-base font-bold leading-tight truncate">Dashboard</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-xl px-4 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">receipt_long</span>
+<p class="text-base font-bold leading-tight truncate">Expenses</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-xl px-4 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">pets</span>
+<p class="text-base font-bold leading-tight truncate">Pet Profiles</p>
+</li>
+<li class="flex h-12 items-center gap-4 rounded-xl px-4 text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-base font-bold leading-tight truncate">Settings</p>
+</li>
+</ul>
+</div>
+</div>
+</body></html>

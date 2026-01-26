@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pet Dashboard &amp; Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#131118] dark:text-white transition-colors duration-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-[480px] mx-auto bg-white dark:bg-[#1c182b] shadow-xl">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2 justify-between sticky top-0 bg-white/80 dark:bg-[#1c182b]/80 backdrop-blur-md z-20">
+<div class="text-[#131118] dark:text-white flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<h2 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Dashboard</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-[#131118] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- Pet Profile Switcher (StoryCarousel style) -->
+<div class="flex w-full overflow-hidden px-4 py-3">
+<div class="flex min-h-min flex-row items-start justify-start gap-5">
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full border-4 border-primary p-0.5" data-alt="Golden retriever puppy smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBB4L0O_il8Gcb5uWLw6S9RZdmHZxvK9eeomOoj1H2P0kdfGHEaBJfbXY9v7UUhtDtLGlq0Row33kUZVDGdvPUfYDka4gQBVxU6WfTv9l6MVr8UiklQBrkeikcKHrOsZqPAisd9FKqvmoHWy6lpoMUCK4Vptn4HRIzdWMhzckGX4KoMAPrOva2rQB1J04Djgollqd7VzkVQdrsCob_IUilI-Ue4a0V3uLNxH98wKk9C0OIP_nv1yR_koO1osIrersRA-MEP987yOa4");'></div>
+<p class="text-primary text-[13px] font-bold leading-normal">Max</p>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center opacity-60">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-full" data-alt="Grey striped kitten looking curious" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcV3pX7dBn2fwk2e93MKatr2imTWZYBkEfS4KqSDgGpp2ZtId0crXXRmGH21uKGkUlA3VCRiYyRPRUqoClML06vwtwF2HNqt6HbbwsbWA7pqx0Z6b9M6L3VZU_cDDDe3gQ6BTs5ifnIMrsdgX5ZhaplzOF3gKuRbNQJFj8DPGvxm4EGXZzdOlxl1RRZuFCMgeOczGamL_S2CWlgxpH5TNGmOVNVTEPRJ3bzpree0SAJ013jXNgiGopDqo4wz8fLvrVUCw3qASre4U");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-normal leading-normal">Luna</p>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center">
+<div class="w-full bg-primary/10 dark:bg-primary/20 aspect-square rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<p class="text-[#131118] dark:text-white text-[13px] font-normal leading-normal">Add</p>
+</div>
+</div>
+</div>
+<!-- Summary Metrics (Carousel style) -->
+<div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<div class="flex items-stretch p-4 gap-4">
+<div class="flex h-full flex-1 flex-col gap-3 rounded-xl min-w-[200px] p-4 bg-gradient-to-br from-[#895af6] to-[#a884f9] text-white shadow-lg">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined opacity-80">account_balance_wallet</span>
+<span class="text-xs font-medium bg-white/20 px-2 py-1 rounded-full">+12%</span>
+</div>
+<div>
+<p class="text-2xl font-bold leading-tight">$1,240.00</p>
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Total Expenses</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-xl min-w-[200px] p-4 bg-gradient-to-br from-[#f472b6] to-[#fb923c] text-white shadow-lg">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined opacity-80">trending_up</span>
+</div>
+<div>
+<p class="text-2xl font-bold leading-tight">$310.00</p>
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Monthly Avg</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-xl min-w-[200px] p-4 bg-white dark:bg-[#251f38] border border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex justify-between items-start text-primary">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-xs font-bold">75%</span>
+</div>
+<div>
+<div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full mb-2 overflow-hidden">
+<div class="bg-primary h-full w-3/4"></div>
+</div>
+<p class="text-[#131118] dark:text-white text-lg font-bold leading-tight">Budget Used</p>
+<p class="text-gray-500 text-xs font-medium">Goal: $1,500.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics Section -->
+<h2 class="text-[#131118] dark:text-white text-[20px] font-bold leading-tight tracking-[-0.015em] px-4 pt-5">Spending Breakdown</h2>
+<div class="px-4 py-4">
+<div class="bg-white dark:bg-[#251f38] rounded-xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-center py-6 relative">
+<!-- Donut Chart Placeholder Representation -->
+<div class="relative size-48">
+<svg class="size-full -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-gray-100 dark:stroke-gray-800" cx="18" cy="18" fill="none" r="16" stroke-width="4"></circle>
+<!-- Food: Amber -->
+<circle cx="18" cy="18" fill="none" r="16" stroke="#FFBF00" stroke-dasharray="40 100" stroke-linecap="round" stroke-width="4"></circle>
+<!-- Healthcare: Red -->
+<circle cx="18" cy="18" fill="none" r="16" stroke="#EF4444" stroke-dasharray="25 100" stroke-dashoffset="-40" stroke-linecap="round" stroke-width="4"></circle>
+<!-- Grooming: Cyan -->
+<circle cx="18" cy="18" fill="none" r="16" stroke="#06B6D4" stroke-dasharray="15 100" stroke-dashoffset="-65" stroke-linecap="round" stroke-width="4"></circle>
+<!-- Other: Primary -->
+<circle cx="18" cy="18" fill="none" r="16" stroke="#895af6" stroke-dasharray="10 100" stroke-dashoffset="-80" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-xs text-gray-500 uppercase font-bold tracking-tighter">Total</span>
+<span class="text-2xl font-extrabold">$1,240</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#FFBF00]"></div>
+<span class="text-sm font-medium opacity-80">Food (40%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#EF4444]"></div>
+<span class="text-sm font-medium opacity-80">Health (25%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#06B6D4]"></div>
+<span class="text-sm font-medium opacity-80">Groom (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#895af6]"></div>
+<span class="text-sm font-medium opacity-80">Other (10%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Transactions -->
+<div class="flex justify-between items-center px-4 pt-4 pb-2">
+<h2 class="text-[#131118] dark:text-white text-[18px] font-bold leading-tight tracking-[-0.015em]">Recent Transactions</h2>
+<button class="text-primary text-sm font-bold">See All</button>
+</div>
+<div class="px-4 pb-24 space-y-3">
+<!-- Transaction Card 1: Food -->
+<div class="flex items-center p-4 bg-white dark:bg-[#251f38] border-l-4 border-[#FFBF00] rounded-lg shadow-sm">
+<div class="size-10 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-[#FFBF00] mr-4">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Premium Kibble</p>
+<p class="text-xs text-gray-500">Today, 10:30 AM</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">-$85.00</p>
+<p class="text-[10px] text-gray-400 font-medium">Max</p>
+</div>
+</div>
+<!-- Transaction Card 2: Healthcare -->
+<div class="flex items-center p-4 bg-white dark:bg-[#251f38] border-l-4 border-[#EF4444] rounded-lg shadow-sm">
+<div class="size-10 rounded-full bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-[#EF4444] mr-4">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Annual Vet Visit</p>
+<p class="text-xs text-gray-500">Yesterday</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">-$120.00</p>
+<p class="text-[10px] text-gray-400 font-medium">Max</p>
+</div>
+</div>
+<!-- Transaction Card 3: Grooming -->
+<div class="flex items-center p-4 bg-white dark:bg-[#251f38] border-l-4 border-[#06B6D4] rounded-lg shadow-sm">
+<div class="size-10 rounded-full bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center text-[#06B6D4] mr-4">
+<span class="material-symbols-outlined">content_cut</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm">Full Grooming Spa</p>
+<p class="text-xs text-gray-500">2 days ago</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-sm">-$65.00</p>
+<p class="text-[10px] text-gray-400 font-medium">Luna</p>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 size-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/40 z-30 transform hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 w-full max-w-[480px] bg-white/90 dark:bg-[#1c182b]/90 backdrop-blur-lg border-t border-gray-100 dark:border-gray-800 pb-8 pt-3 z-40">
+<div class="flex justify-around items-center">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-[10px] font-medium">Stats</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">pets</span>
+<span class="text-[10px] font-medium">Pets</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

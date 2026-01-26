@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Log New Expense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#131118] dark:text-white min-h-screen">
+<div class="max-w-md mx-auto min-h-screen flex flex-col relative pb-24">
+<!-- TopAppBar -->
+<div class="flex items-center bg-transparent p-4 pb-2 justify-between">
+<div class="text-[#131118] dark:text-white flex size-12 shrink-0 items-center">
+<span class="material-symbols-outlined cursor-pointer">close</span>
+</div>
+<h2 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center font-display">Log New Expense</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 bg-transparent text-[#131118] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 overflow-y-auto px-4">
+<!-- Section: Amount Input (Focused/Large) -->
+<div class="flex flex-col items-center py-8">
+<p class="text-sm font-medium text-[#6d608a] dark:text-gray-400 mb-2 uppercase tracking-wider">Amount Spent</p>
+<div class="relative flex items-center justify-center w-full">
+<span class="text-4xl font-bold text-primary mr-1">$</span>
+<input class="w-48 bg-transparent border-none focus:ring-0 text-5xl font-bold text-[#131118] dark:text-white placeholder:text-[#dedbe6] dark:placeholder:text-[#332a4d] text-center p-0" placeholder="0.00" type="number"/>
+</div>
+<div class="h-0.5 w-32 bg-primary/20 mt-2 rounded-full"></div>
+</div>
+<!-- SectionHeader: Select Pet -->
+<h3 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4 font-display">Select Pet</h3>
+<!-- StoryCarousel: Pet Icons -->
+<div class="flex w-full overflow-x-auto no-scrollbar py-3">
+<div class="flex min-h-min flex-row items-start justify-start gap-5">
+<!-- Pet 1 (Active State) -->
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center">
+<div class="relative">
+<div class="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-full border-2 border-primary p-0.5" data-alt="Portrait of a friendly golden retriever" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDMBF7t7cAi3wksBe7I2cEm4jFPZ5Gj4m2ZEfgDqAnlzJpYjzbxeh_o1pNEJgGR-P-UtICSy_BvE-c2VzMXJ-CWeG7STWpPuatOeJo6rFO7rMDSvMLGFrToX08Y52jwByi7TyU6P_vLWEPoMmnhrqN4LpGgvAM6byeNzl_DY28eRTsXNOOYeBrkNYecnFuNy6u8_QLkBeD4WlB24MEWcUyCiCN0Okx-sF9067pQMN6r3gQZXBL40__Q-qXKrK7up-puywLu6bkEax0");'></div>
+<div class="absolute -top-1 -right-1 bg-primary text-white rounded-full p-0.5 flex items-center justify-center border-2 border-white dark:border-background-dark">
+<span class="material-symbols-outlined text-xs font-bold leading-none">check</span>
+</div>
+</div>
+<p class="text-primary text-[13px] font-semibold leading-normal font-display">Buddy</p>
+</div>
+<!-- Pet 2 -->
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center opacity-60">
+<div class="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-full grayscale-[50%]" data-alt="Portrait of a grey fluffy cat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBoP7UD1z9zMFNXxRPrIUZGugQHFsU0zP2w13HCqlWRQbzPcwAgi6aqycI4LsZPvr70mZIhFRilFDJHAa5H-sJmkJZ6Auo6cJzdfgdwPxdztD1jg0ed5D8uA2qJJaS26CBbMm_w25IjbjcRAHZ_-bbfLzKSyK1JQKxw7ZOKXYgCCn-MUwwTr2HB2A3nP1S5GCkEBfaLPSFpJTjfZbRuiZIV8BrFqUoMoSPBxM7BNlB3Iwt7Jwp8PKc5fPG9hHkroXtYsaeYfeNGYlc");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-normal leading-normal font-display">Luna</p>
+</div>
+<!-- Pet 3 -->
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center opacity-60">
+<div class="w-16 h-16 bg-center bg-no-repeat aspect-square bg-cover rounded-full grayscale-[50%]" data-alt="Portrait of a small beagle puppy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDtPQEqRXb_Es9CfpQhYuVAl8oaeHmrw-GEXyvW8O0VTN4WcZxbn54LGf-9ODqHOoImij-RJzvk_Ii4v7e-3NNsnAl6fOadKjIhqeXtOsr9B50ZgT7zmX0K-xn8ZO596u8GjR3mdrPjopKq7vjWjzEst_JUJOPdLFt7jX9Z_-d2hl8vaKB-B-RrHQAAnJgbYC5bB00U6X_LZn1q8j7A30mMMphzgL0lpfpUZcPTRX5nymeFuhp0k9wOS0ugekj6wKw4SZ2iM9a00bM");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-normal leading-normal font-display">Max</p>
+</div>
+<!-- Add Pet -->
+<div class="flex flex-1 flex-col justify-center gap-2 w-16 text-center">
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-[#dedbe6] dark:border-[#332a4d] flex items-center justify-center text-[#6d608a]">
+<span class="material-symbols-outlined">add</span>
+</div>
+<p class="text-[#6d608a] text-[13px] font-normal leading-normal font-display">Add</p>
+</div>
+</div>
+</div>
+<!-- Section: Category Grid -->
+<h3 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-3 pt-6 font-display">Category</h3>
+<div class="grid grid-cols-3 gap-3 mb-6">
+<!-- Food -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-primary bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mb-1">restaurant</span>
+<span class="text-xs font-semibold text-primary">Food</span>
+</button>
+<!-- Healthcare -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50">
+<span class="material-symbols-outlined text-[#ef4444] mb-1">medical_services</span>
+<span class="text-xs font-medium text-[#131118] dark:text-white">Health</span>
+</button>
+<!-- Grooming -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50">
+<span class="material-symbols-outlined text-[#3b82f6] mb-1">content_cut</span>
+<span class="text-xs font-medium text-[#131118] dark:text-white">Groom</span>
+</button>
+<!-- Toys -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50">
+<span class="material-symbols-outlined text-[#f59e0b] mb-1">smart_toy</span>
+<span class="text-xs font-medium text-[#131118] dark:text-white">Toys</span>
+</button>
+<!-- Training -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50">
+<span class="material-symbols-outlined text-[#10b981] mb-1">sports_score</span>
+<span class="text-xs font-medium text-[#131118] dark:text-white">Train</span>
+</button>
+<!-- Other -->
+<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50">
+<span class="material-symbols-outlined text-[#6d608a] mb-1">grid_view</span>
+<span class="text-xs font-medium text-[#131118] dark:text-white">Other</span>
+</button>
+</div>
+<!-- Date & Notes Section -->
+<div class="space-y-4">
+<!-- Date Picker Style -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-background-dark/50 border border-[#dedbe6] dark:border-[#332a4d] rounded-xl">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+</div>
+<div>
+<p class="text-xs text-[#6d608a] dark:text-gray-400 font-medium">Date</p>
+<p class="text-sm font-bold text-[#131118] dark:text-white font-display">Today, Oct 24</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#6d608a]">chevron_right</span>
+</div>
+<!-- TextField: Notes -->
+<label class="flex flex-col w-full">
+<div class="flex items-center gap-2 pb-2">
+<span class="material-symbols-outlined text-sm text-[#6d608a]">notes</span>
+<p class="text-[#131118] dark:text-white text-base font-bold leading-normal font-display">Notes</p>
+</div>
+<div class="flex w-full flex-1 items-stretch rounded-xl">
+<textarea class="form-textarea flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#131118] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dedbe6] dark:border-[#332a4d] bg-white dark:bg-background-dark/50 h-24 placeholder:text-[#6d608a] p-4 text-base font-normal leading-normal font-display" placeholder="What was this for? (e.g. Monthly dry food)"></textarea>
+</div>
+</label>
+</div>
+</div>
+<!-- Sticky Bottom Button -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/25 flex items-center justify-center gap-2 transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined">receipt_long</span>
+                    Save Expense
+                </button>
+</div>
+</div>
+</div>
+</body></html>
