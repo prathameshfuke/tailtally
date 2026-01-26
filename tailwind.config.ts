@@ -3,7 +3,10 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
-	content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+	content: [
+		"./index.html",
+		"./src/**/*.{ts,tsx,js,jsx}"
+	],
 	prefix: "",
 	theme: {
 		container: {
@@ -116,8 +119,7 @@ export default {
 						transform: 'translateY(10px)'
 					},
 					to: {
-						opacity: '1',
-						transform: 'translateY(0)'
+						height: '0'
 					}
 				},
 				'slide-in-right': {

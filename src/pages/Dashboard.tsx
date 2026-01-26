@@ -139,7 +139,7 @@ export default function Dashboard() {
       <div className="px-4 space-y-6">
         {/* Pet Carousel */}
         {pets.length > 1 && (
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-3 overflow-x-auto p-2 scrollbar-hide">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

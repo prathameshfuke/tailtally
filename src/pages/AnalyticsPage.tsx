@@ -119,7 +119,7 @@ export default function AnalyticsPage() {
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-3">
                         Switch Pet Profile
                     </h3>
-                    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                    <div className="flex gap-4 overflow-x-auto p-2 scrollbar-hide">
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
