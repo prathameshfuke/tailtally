@@ -1,14 +1,13 @@
 import { useState, useMemo } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Receipt, Search, Filter } from 'lucide-react';
 import { format, startOfMonth, endOfMonth, subMonths, isWithinInterval } from 'date-fns';
 import { usePets, useExpenses } from '@/hooks/usePetData';
 import { Expense, ExpenseCategory, CATEGORY_CONFIG, PET_TYPE_CONFIG } from '@/lib/types';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/ui/empty-state';
 import { ExpenseCard } from '@/components/expenses/ExpenseCard';
 import { ExpenseFormDialog } from '@/components/expenses/ExpenseFormDialog';
+import { PageHeader } from '@/components/layout/PageHeader';
 import {
   Select,
   SelectContent,
@@ -30,6 +29,15 @@ import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
 type TimeFilter = 'all' | 'this-month' | 'last-3-months' | 'last-12-months';
+
+const categoryEmojis: Record<ExpenseCategory, string> = {
+  food: '🍖',
+  healthcare: '🏥',
+  grooming: '✂️',
+  toys: '🎾',
+  training: '🎓',
+  other: '💰'
+};
 
 export default function ExpensesPage() {
   const navigate = useNavigate();
@@ -154,16 +162,21 @@ export default function ExpensesPage() {
 
   if (pets.length === 0) {
     return (
-      <div className="py-12">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24 px-6">
         <EmptyState
           icon={<Receipt className="h-8 w-8" />}
           title="No pets to track"
           description="Add a pet first before logging expenses."
           action={
-            <Button onClick={() => navigate('/pets')}>
-              <Plus className="mr-2 h-4 w-4" />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/pets')}
+              className="bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-3 rounded-full shadow-playful-lg font-bold"
+            >
+              <Plus className="inline mr-2 h-4 w-4" />
               Add Your First Pet
-            </Button>
+            </motion.button>
           }
         />
       </div>
@@ -171,132 +184,141 @@ export default function ExpensesPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Expenses</h1>
-          <p className="text-muted-foreground">Track and manage all pet expenses</p>
-        </div>
-        <Button onClick={() => setShowFormDialog(true)} className="shadow-glow">
-          <Plus className="mr-2 h-4 w-4" />
-          Log Expense
-        </Button>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24">
+      <PageHeader title="Expense History 📝" />
 
-      {/* Filters */}
-      <div className="flex flex-col gap-4 rounded-xl border bg-card p-4">
-        <div className="flex items-center gap-2">
-          <Filter className="h-5 w-5 text-muted-foreground" />
-          <span className="font-medium">Filters</span>
-        </div>
-        
-        <div className="flex flex-wrap gap-3">
-          {/* Search */}
-          <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search expenses..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9"
-            />
+      <div className="px-4 pt-6 space-y-6">
+        {/* Filters */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-playful"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Filter className="h-5 w-5 text-purple-600" />
+            <span className="font-bold text-gray-900 dark:text-white">Filters</span>
           </div>
           
-          {/* Time Filter */}
-          <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
-            <SelectTrigger className="w-[160px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Time</SelectItem>
-              <SelectItem value="this-month">This Month</SelectItem>
-              <SelectItem value="last-3-months">Last 3 Months</SelectItem>
-              <SelectItem value="last-12-months">Last 12 Months</SelectItem>
-            </SelectContent>
-          </Select>
-          
-          {/* Pet Filter */}
-          <Select value={petFilter} onValueChange={setPetFilter}>
-            <SelectTrigger className="w-[160px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Pets</SelectItem>
-              {pets.map((pet) => (
-                <SelectItem key={pet.id} value={pet.id}>
-                  {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
-                </SelectItem>
+          <div className="space-y-3">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <input
+                placeholder="Search expenses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border-2 border-purple-100 dark:border-purple-900 rounded-xl bg-white dark:bg-gray-900 focus:outline-none focus:border-purple-500"
+              />
+            </div>
+            
+            <div className="grid grid-cols-3 gap-2">
+              {/* Time Filter */}
+              <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
+                <SelectTrigger className="rounded-xl border-2 border-purple-100">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Time</SelectItem>
+                  <SelectItem value="this-month">This Month</SelectItem>
+                  <SelectItem value="last-3-months">Last 3 Months</SelectItem>
+                  <SelectItem value="last-12-months">Last 12 Months</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              {/* Pet Filter */}
+              <Select value={petFilter} onValueChange={setPetFilter}>
+                <SelectTrigger className="rounded-xl border-2 border-purple-100">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Pets</SelectItem>
+                  {pets.map((pet) => (
+                    <SelectItem key={pet.id} value={pet.id}>
+                      {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              {/* Category Filter */}
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="rounded-xl border-2 border-purple-100">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
+                    <SelectItem key={cat} value={cat}>
+                      {categoryEmojis[cat]} {CATEGORY_CONFIG[cat].label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Results summary */}
+            <div className="flex items-center justify-between pt-2 border-t border-purple-100 dark:border-purple-900">
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                {filteredExpenses.length} expense{filteredExpenses.length !== 1 ? 's' : ''} found
+              </span>
+              <span className="text-sm font-bold text-purple-600">
+                Total: ${totalFiltered.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Expense List */}
+        {filteredExpenses.length > 0 ? (
+          <div className="space-y-3">
+            <AnimatePresence>
+              {filteredExpenses.map((expense) => (
+                <ExpenseCard
+                  key={expense.id}
+                  expense={expense}
+                  pet={pets.find((p) => p.id === expense.petId)}
+                  onEdit={(e) => {
+                    setEditingExpense(e);
+                    setShowFormDialog(true);
+                  }}
+                  onDelete={(id) => setDeletingExpenseId(id)}
+                />
               ))}
-            </SelectContent>
-          </Select>
-          
-          {/* Category Filter */}
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[160px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
-                <SelectItem key={cat} value={cat}>
-                  <span className="flex items-center gap-2">
-                    <span
-                      className="h-2 w-2 rounded-full"
-                      style={{ backgroundColor: CATEGORY_CONFIG[cat].color }}
-                    />
-                    {CATEGORY_CONFIG[cat].label}
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        
-        {/* Results summary */}
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">
-            {filteredExpenses.length} expense{filteredExpenses.length !== 1 ? 's' : ''} found
-          </span>
-          <span className="font-medium text-primary">
-            Total: ${totalFiltered.toFixed(2)}
-          </span>
+            </AnimatePresence>
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <Receipt className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500 mb-6">
+              {searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all' 
+                ? "Try adjusting your filters to see more results." 
+                : "Start by logging your first expense."}
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowFormDialog(true)}
+              className="bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-3 rounded-full shadow-playful font-bold"
+            >
+              <Plus className="inline mr-2 h-4 w-4" />
+              Log Expense
+            </motion.button>
+          </div>
+        )}
+
+        {/* Add Expense Button */}
+        <div className="mt-8">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setShowFormDialog(true)}
+            className="w-full bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-4 rounded-full shadow-playful flex items-center justify-center gap-3 font-bold"
+          >
+            <Plus className="w-5 h-5" />
+            Add New Expense
+          </motion.button>
         </div>
       </div>
-
-      {/* Expense List */}
-      {filteredExpenses.length > 0 ? (
-        <div className="space-y-3">
-          <AnimatePresence>
-            {filteredExpenses.map((expense) => (
-              <ExpenseCard
-                key={expense.id}
-                expense={expense}
-                pet={pets.find((p) => p.id === expense.petId)}
-                onEdit={(e) => {
-                  setEditingExpense(e);
-                  setShowFormDialog(true);
-                }}
-                onDelete={(id) => setDeletingExpenseId(id)}
-              />
-            ))}
-          </AnimatePresence>
-        </div>
-      ) : (
-        <EmptyState
-          icon={<Receipt className="h-8 w-8" />}
-          title="No expenses found"
-          description={searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all' 
-            ? "Try adjusting your filters to see more results." 
-            : "Start by logging your first expense."}
-          action={
-            <Button onClick={() => setShowFormDialog(true)}>
-              <Plus className="mr-2 h-4 w-4" />
-              Log Expense
-            </Button>
-          }
-        />
-      )}
 
       {/* Form Dialog */}
       <ExpenseFormDialog
@@ -323,7 +345,7 @@ export default function ExpensesPage() {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteExpense}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-red-600 hover:bg-red-700"
             >
               Delete
             </AlertDialogAction>

@@ -55,37 +55,37 @@ export interface AnnualEstimate {
 export const CATEGORY_CONFIG: Record<ExpenseCategory, { label: string; color: string; bgClass: string; borderClass: string }> = {
   food: {
     label: 'Food',
-    color: 'hsl(38, 92%, 50%)',
+    color: 'hsl(36, 100%, 50%)', // Material Design 3 - Bright Orange
     bgClass: 'bg-category-food',
     borderClass: 'border-category-food'
   },
   healthcare: {
     label: 'Healthcare',
-    color: 'hsl(0, 84%, 60%)',
+    color: 'hsl(4, 90%, 58%)', // Material Design 3 - Vibrant Red
     bgClass: 'bg-category-healthcare',
     borderClass: 'border-category-healthcare'
   },
   grooming: {
     label: 'Grooming',
-    color: 'hsl(187, 85%, 43%)',
+    color: 'hsl(187, 100%, 38%)', // Material Design 3 - Bright Cyan
     bgClass: 'bg-category-grooming',
     borderClass: 'border-category-grooming'
   },
   toys: {
     label: 'Toys & Accessories',
-    color: 'hsl(263, 70%, 66%)',
+    color: 'hsl(291, 64%, 42%)', // Material Design 3 - Vivid Purple
     bgClass: 'bg-category-toys',
     borderClass: 'border-category-toys'
   },
   training: {
     label: 'Training',
-    color: 'hsl(217, 91%, 60%)',
+    color: 'hsl(207, 90%, 54%)', // Material Design 3 - Bright Blue
     bgClass: 'bg-category-training',
     borderClass: 'border-category-training'
   },
   other: {
     label: 'Other',
-    color: 'hsl(220, 9%, 46%)',
+    color: 'hsl(200, 18%, 46%)', // Material Design 3 - Blue Gray
     bgClass: 'bg-category-other',
     borderClass: 'border-category-other'
   },

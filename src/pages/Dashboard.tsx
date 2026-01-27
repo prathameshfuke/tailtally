@@ -5,17 +5,18 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-  Tooltip,
 } from 'recharts';
 import { format, startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
-import { Wallet, TrendingUp, TrendingDown } from 'lucide-react';
+import {
+  Wallet,
+  Plus,
+  Sparkles,
+  MoreHorizontal
+} from 'lucide-react';
 import { usePets, useExpenses } from '@/hooks/usePetData';
 import { CATEGORY_CONFIG, ExpenseCategory, PET_TYPE_CONFIG } from '@/lib/types';
-import { cn } from '@/lib/utils';
 import { ExpenseFormDialog } from '@/components/expenses/ExpenseFormDialog';
-import { StatCard } from '@/components/ui/gradient-card';
-import { PetAvatar } from '@/components/ui/pet-avatar';
-import { CategoryIcon } from '@/components/ui/category-badge';
+import { PageHeader } from '@/components/layout/PageHeader';
 import {
   Select,
   SelectContent,
@@ -23,6 +24,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+
+const categoryIcons: Record<ExpenseCategory, any> = {
+  food: '🍖',
+  healthcare: '🏥',
+  grooming: '✂️',
+  toys: '🎾',
+  training: '🎓',
+  other: '💰'
+};
 
 export default function Dashboard() {
   const { pets } = usePets();
@@ -57,19 +67,12 @@ export default function Dashboard() {
       return acc;
     }, {} as Record<ExpenseCategory, number>);
 
-    const topCategoryEntry = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1])[0];
-
-    // Calculate monthly average (mock)
-    const monthlyAvg = total * 0.85; // Mock calculation
-
     return {
       total,
       budget,
       budgetUsed,
       categoryTotals,
-      topCategory: topCategoryEntry ? { category: topCategoryEntry[0] as ExpenseCategory, amount: topCategoryEntry[1] } : null,
-      monthlyAvg,
-      changePercent: 12, // Mock
+      remaining: budget - total,
     };
   }, [filteredExpenses, selectedPetId, pets.length]);
 
@@ -81,286 +84,191 @@ export default function Dashboard() {
     }));
   }, [stats]);
 
-  const categoryBudgets = {
-    food: 200,
-    healthcare: 250,
-    grooming: 150,
-    toys: 100,
-    training: 100,
-    other: 100
-  };
-
   return (
-    <div className="pb-24 min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50/30 dark:from-background-dark dark:via-background-dark dark:to-purple-900/10">
-      {/* Playful Header */}
-      <header className="sticky top-0 z-30 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl border-b border-gray-100 dark:border-white/10 mb-6">
-        <div className="flex items-center p-4 justify-between">
-          <div className="flex items-center gap-3">
-            <Select value={selectedPetId} onValueChange={setSelectedPetId}>
-              <SelectTrigger className="h-auto gap-2 border-none bg-transparent p-0 focus:ring-0 w-auto">
-                <div className="flex items-center gap-3">
-                  <PetAvatar
-                    src={activePet ? (activePet.photo || PET_TYPE_CONFIG[activePet.type].defaultImage) : PET_TYPE_CONFIG['dog'].defaultImage}
-                    alt={activePet?.name || 'Pet'}
-                    size="sm"
-                    borderColor="#8b5cf6"
-                  />
-                  <div className="text-left">
-                    <SelectValue>
-                      <p className="text-lg font-bold text-display text-[#131118] dark:text-white">
-                        {activePet ? `${activePet.name}'s Budget` : "Family Budget"}
-                      </p>
-                    </SelectValue>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {activePet ? activePet.type : `All ${pets.length} Pets`}
-                    </p>
-                  </div>
-                </div>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Family Budget (All)</SelectItem>
-                {pets.map(pet => (
-                  <SelectItem key={pet.id} value={pet.id}>{pet.name}'s Budget</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setShowExpenseDialog(true)}
-            className="w-12 h-12 flex items-center justify-center rounded-2xl gradient-purple text-white shadow-lg shadow-purple-500/30"
-          >
-            <span className="material-symbols-outlined">add</span>
-          </motion.button>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24">
+      {/* Wavy Gradient Header */}
+      <PageHeader
+        title="Hey there, Pet Parent! 🎉"
+        variant="gradient"
+      />
 
-      <div className="px-4 space-y-6">
-        {/* Pet Carousel */}
-        {pets.length > 1 && (
-          <div className="flex gap-3 overflow-x-auto p-2 scrollbar-hide">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedPetId('all')}
-              className="flex-shrink-0"
-            >
-              <div className="flex flex-col items-center gap-2">
-                <PetAvatar
-                  src={PET_TYPE_CONFIG['dog'].defaultImage}
-                  alt="All Pets"
-                  size="lg"
-                  borderColor={selectedPetId === 'all' ? '#8b5cf6' : '#d1d5db'}
-                  selected={selectedPetId === 'all'}
-                />
-                <span className={cn(
-                  "text-xs font-bold text-display",
-                  selectedPetId === 'all' ? "text-primary" : "text-gray-500"
-                )}>
-                  All
-                </span>
-              </div>
-            </motion.div>
-            {pets.map(pet => (
-              <motion.div
-                key={pet.id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedPetId(pet.id)}
-                className="flex-shrink-0"
-              >
-                <div className="flex flex-col items-center gap-2">
-                  <PetAvatar
-                    src={pet.photo || PET_TYPE_CONFIG[pet.type].defaultImage}
-                    alt={pet.name}
-                    size="lg"
-                    borderColor={selectedPetId === pet.id ? '#8b5cf6' : '#d1d5db'}
-                    selected={selectedPetId === pet.id}
-                  />
-                  <span className={cn(
-                    "text-xs font-bold text-display",
-                    selectedPetId === pet.id ? "text-primary" : "text-gray-500"
-                  )}>
-                    {pet.name}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-
-        {/* Gradient Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <StatCard
-            variant="purple"
-            icon={<Wallet className="w-5 h-5 text-white" />}
-            label="Total Expenses"
-            value={`$${stats.total.toFixed(2)}`}
-            badge={
-              <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold flex items-center gap-1">
-                <TrendingUp className="w-3 h-3" />
-                +{stats.changePercent}%
-              </div>
-            }
-          />
-          <StatCard
-            variant="coral"
-            icon={<TrendingUp className="w-5 h-5 text-white" />}
-            label="Monthly Avg"
-            value={`$${stats.monthlyAvg.toFixed(2)}`}
-          />
-        </div>
-
-        {/* Monthly Usage Overview */}
+      {/* Main Content */}
+      <div className="px-4 -mt-16 relative z-20">
+        {/* Glassmorphism Welcome Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg"
+          className="glass-card rounded-xl p-6 shadow-playful-lg flex items-center gap-4 mb-8"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">Total Monthly Usage</p>
-              <p className="text-4xl font-bold text-display mt-1">{stats.budgetUsed.toFixed(0)}%</p>
-            </div>
-            <div className="px-4 py-2 bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 rounded-full text-xs font-bold flex items-center gap-1">
-              <TrendingDown className="w-3 h-3" />
-              5% less than last month
-            </div>
+          <div className="w-20 h-20 rounded-full bg-purple-500/20 flex items-center justify-center overflow-hidden border-4 border-white">
+            {activePet ? (
+              <span className="text-4xl">{PET_TYPE_CONFIG[activePet.type].emoji}</span>
+            ) : (
+              <img src="/logo.png" alt="TailTally" className="w-full h-full object-contain" />
+            )}
           </div>
-          <div className="h-3 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${stats.budgetUsed}%` }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="h-full gradient-purple rounded-full"
-            />
+          <div className="flex-1">
+            <p className="text-purple-600 font-bold text-lg">
+              {activePet ? `${activePet.name} is happy!` : `All your pets are doing great!`}
+            </p>
+            <p className="text-gray-600 text-sm">
+              {activePet
+                ? `They've had ${filteredExpenses.length} expenses this month.`
+                : `${pets.length} pet${pets.length !== 1 ? 's' : ''} • ${filteredExpenses.length} expenses`}
+            </p>
           </div>
         </motion.div>
 
-        {/* Spending Breakdown Chart */}
+        {/* Pet Selector */}
+        <div className="mb-6">
+          <Select value={selectedPetId} onValueChange={setSelectedPetId}>
+            <SelectTrigger className="w-full h-14 rounded-2xl border-2 border-purple-200 bg-white shadow-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">
+                <span className="font-medium">All Pets 🐾</span>
+              </SelectItem>
+              {pets.map(pet => (
+                <SelectItem key={pet.id} value={pet.id}>
+                  <span>{PET_TYPE_CONFIG[pet.type].emoji} {pet.name}</span>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Quick Stats Bubbles */}
+        <div className="mb-8">
+          <h3 className="text-xl font-bold mb-4 px-2">Quick Stats</h3>
+          <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+            {Object.entries(stats.categoryTotals).slice(0, 4).map(([category, amount]) => {
+              const config = CATEGORY_CONFIG[category as ExpenseCategory];
+              return (
+                <motion.div
+                  key={category}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col items-center justify-center min-w-[100px] aspect-square rounded-full bg-white shadow-playful border-b-4 p-4"
+                  style={{ borderColor: `${config.color}33` }}
+                >
+                  <span className="text-3xl mb-1">{categoryIcons[category as ExpenseCategory]}</span>
+                  <p className="text-xs font-medium text-gray-600 truncate w-full text-center">{config.label}</p>
+                  <p className="text-lg font-bold">${amount.toFixed(0)}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Doughnut Chart Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg"
+          className="bg-white rounded-xl p-6 shadow-playful mb-8 relative"
         >
-          <h3 className="text-xl font-bold text-display mb-6">Spending Breakdown</h3>
-          <div className="relative flex justify-center items-center h-64">
-            {pieData.length > 0 ? (
-              <>
+          <div className="flex justify-between items-start mb-6">
+            <div>
+              <h3 className="text-xl font-bold">Monthly Budget</h3>
+              <p className="text-sm text-gray-600">Total spent: ${stats.total.toFixed(2)}</p>
+            </div>
+            <MoreHorizontal className="text-purple-600 w-6 h-6" />
+          </div>
+
+          {pieData.length > 0 ? (
+            <div className="flex justify-center items-center py-4 relative">
+              <div className="relative w-48 h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={pieData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={60}
+                      innerRadius={70}
                       outerRadius={90}
-                      paddingAngle={5}
+                      paddingAngle={4}
                       dataKey="value"
                       stroke="none"
+                      strokeLinecap="round"
                     >
                       {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.98)',
-                        borderRadius: '16px',
-                        border: 'none',
-                        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-                        padding: '12px'
-                      }}
-                      formatter={(value: number) => [`$${value.toFixed(2)}`, 'Amount']}
-                    />
                   </PieChart>
                 </ResponsiveContainer>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-wider">Total</p>
-                  <p className="text-3xl font-bold text-display">${stats.total.toFixed(0)}</p>
-                </div>
-              </>
-            ) : (
-              <div className="text-gray-400 text-sm">No expenses yet</div>
-            )}
-          </div>
 
-          {pieData.length > 0 && (
-            <div className="grid grid-cols-2 gap-3 mt-6">
-              {pieData.slice(0, 4).map((entry) => (
-                <div key={entry.name} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
-                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
-                    {entry.name} ({((entry.value / stats.total) * 100).toFixed(0)}%)
-                  </span>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <p className="text-2xl font-bold">{stats.budgetUsed.toFixed(0)}%</p>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-600">Used</p>
                 </div>
-              ))}
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-center items-center h-48">
+              <p className="text-gray-400">No expenses yet!</p>
             </div>
           )}
         </motion.div>
 
-        {/* Category Budgets */}
-        <div>
-          <h3 className="text-xl font-bold text-display mb-4">Category Budgets</h3>
-          <div className="space-y-3">
-            {(Object.keys(stats.categoryTotals) as ExpenseCategory[]).slice(0, 3).map((cat, index) => {
-              const amount = stats.categoryTotals[cat];
-              const budget = categoryBudgets[cat] || 100;
-              const percentage = Math.min(100, (amount / budget) * 100);
-              const config = CATEGORY_CONFIG[cat];
+        {/* Recent Activity (Receipt Style) */}
+        <div className="mb-12">
+          <div className="flex justify-between items-end px-2 mb-4">
+            <h3 className="text-xl font-bold">Recent Activity</h3>
+            <p className="text-purple-600 text-sm font-bold">View All</p>
+          </div>
+
+          <div className="space-y-4">
+            {filteredExpenses.slice(0, 5).map((expense) => {
+              const pet = pets.find(p => p.id === expense.petId);
+              const config = CATEGORY_CONFIG[expense.category];
 
               return (
                 <motion.div
-                  key={cat}
+                  key={expense.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  className="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-md border-4"
-                  style={{ borderColor: config.color }}
+                  className="dashed-border-card rounded-xl p-1"
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="bg-white rounded-xl p-4 flex items-center justify-between border-b-4 border-dashed border-gray-100">
                     <div className="flex items-center gap-3">
-                      <CategoryIcon category={cat} size="sm" />
+                      <div
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${config.color}20` }}
+                      >
+                        <span className="text-2xl">{categoryIcons[expense.category]}</span>
+                      </div>
                       <div>
-                        <p className="font-bold text-display">{config.label}</p>
-                        <p className="text-xs text-gray-500">Monthly Allowance</p>
+                        <p className="font-bold text-gray-900">{config.label}</p>
+                        <p className="text-xs text-gray-600">
+                          {pet?.name} • {format(new Date(expense.date), 'MMM d, h:mm a')}
+                        </p>
                       </div>
                     </div>
-                    <span className="text-sm font-bold" style={{ color: config.color }}>
-                      {percentage.toFixed(0)}%
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                    ${amount.toFixed(2)} of ${budget} spent
-                  </p>
-                  <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${percentage}%` }}
-                      transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: config.color }}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs font-bold" style={{ color: config.color }}>
-                      ${Math.max(0, budget - amount).toFixed(2)} remaining
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      Renews in 5 days
-                    </span>
+                    <p className="font-bold text-lg">-${expense.amount.toFixed(2)}</p>
                   </div>
                 </motion.div>
               );
             })}
-            {Object.keys(stats.categoryTotals).length === 0 && (
-              <p className="text-gray-400 text-center italic py-8">Start spending to see budget progress!</p>
+
+            {filteredExpenses.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-500">No expenses yet. Tap the + button to add one!</p>
+              </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* Bouncing FAB */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setShowExpenseDialog(true)}
+        className="fixed bottom-8 right-6 z-50 w-20 h-20 bg-gradient-to-tr from-purple-600 to-pink-500 text-white rounded-full shadow-playful-fab flex items-center justify-center animate-bounce-soft border-4 border-white/30 backdrop-blur-sm"
+      >
+        <Plus className="w-10 h-10" />
+      </motion.button>
 
       <ExpenseFormDialog
         open={showExpenseDialog}

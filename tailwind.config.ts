@@ -169,6 +169,10 @@ export default {
 				glow: '0 0 20px rgba(139, 92, 246, 0.3)',
 				'glow-pink': '0 0 20px rgba(236, 72, 153, 0.3)',
 				'glow-green': '0 0 20px rgba(16, 185, 129, 0.3)',
+				'playful': '0 10px 25px -5px rgba(124, 62, 237, 0.2)',
+				'playful-lg': '0 15px 40px -10px rgba(124, 62, 237, 0.3)',
+				'playful-pink': '0 10px 25px -5px rgba(236, 72, 153, 0.3)',
+				'playful-fab': '0 15px 30px rgba(124, 62, 237, 0.4)',
 				'2xs': 'var(--shadow-2xs)',
 				xs: 'var(--shadow-xs)',
 				sm: 'var(--shadow-sm)',
@@ -178,10 +182,11 @@ export default {
 				'2xl': 'var(--shadow-2xl)'
 			},
 			fontFamily: {
-				"display": ["Manrope", "sans-serif"],
+				"display": ["Spline Sans", "sans-serif"],
+				"fredoka": ["Fredoka", "sans-serif"],
+				"grotesk": ["Space Grotesk", "sans-serif"],
 				sans: [
-					'Manrope',
-					'Nunito',
+					'Spline Sans',
 					'ui-sans-serif',
 					'system-ui',
 					'-apple-system',
@@ -194,7 +199,6 @@ export default {
 					'sans-serif'
 				],
 				serif: [
-					'Quicksand',
 					'ui-serif',
 					'Georgia',
 					'Cambria',
@@ -203,7 +207,6 @@ export default {
 					'serif'
 				],
 				mono: [
-					'Quicksand',
 					'ui-monospace',
 					'SFMono-Regular',
 					'Menlo',
