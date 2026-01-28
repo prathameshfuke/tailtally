@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
+import illustratorBg from '@/assets/illustrator-bg.jpg';
 
 type TimeFilter = 'all' | 'this-month' | 'last-3-months' | 'last-12-months';
 
@@ -44,7 +45,7 @@ export default function ExpensesPage() {
   const { pets } = usePets();
   const { expenses, addExpense, updateExpense, deleteExpense } = useExpenses();
   const { toast } = useToast();
-  
+
   const [showFormDialog, setShowFormDialog] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
   const [deletingExpenseId, setDeletingExpenseId] = useState<string | null>(null);
@@ -56,7 +57,6 @@ export default function ExpensesPage() {
   const filteredExpenses = useMemo(() => {
     return expenses
       .filter((expense) => {
-        // Search filter
         if (searchQuery) {
           const pet = pets.find((p) => p.id === expense.petId);
           const searchLower = searchQuery.toLowerCase();
@@ -65,13 +65,12 @@ export default function ExpensesPage() {
           const matchesCategory = CATEGORY_CONFIG[expense.category].label.toLowerCase().includes(searchLower);
           if (!matchesNotes && !matchesPet && !matchesCategory) return false;
         }
-        
-        // Time filter
+
         if (timeFilter !== 'all') {
           const now = new Date();
           let start: Date;
           const end = endOfMonth(now);
-          
+
           switch (timeFilter) {
             case 'this-month':
               start = startOfMonth(now);
@@ -85,17 +84,14 @@ export default function ExpensesPage() {
             default:
               start = new Date(0);
           }
-          
+
           const expenseDate = new Date(expense.date);
           if (!isWithinInterval(expenseDate, { start, end })) return false;
         }
-        
-        // Pet filter
+
         if (petFilter !== 'all' && expense.petId !== petFilter) return false;
-        
-        // Category filter
         if (categoryFilter !== 'all' && expense.category !== categoryFilter) return false;
-        
+
         return true;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -162,7 +158,7 @@ export default function ExpensesPage() {
 
   if (pets.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24 px-6">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 px-6">
         <EmptyState
           icon={<Receipt className="h-8 w-8" />}
           title="No pets to track"
@@ -172,7 +168,7 @@ export default function ExpensesPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/pets')}
-              className="bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-3 rounded-full shadow-playful-lg font-bold"
+              className="gradient-warm text-white px-8 py-3 rounded-full shadow-playful-lg font-bold"
             >
               <Plus className="inline mr-2 h-4 w-4" />
               Add Your First Pet
@@ -184,143 +180,171 @@ export default function ExpensesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24">
-      <PageHeader title="Expense History 📝" />
-
-      <div className="px-4 pt-6 space-y-6">
-        {/* Filters */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-playful"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Filter className="h-5 w-5 text-purple-600" />
-            <span className="font-bold text-gray-900 dark:text-white">Filters</span>
-          </div>
-          
-          <div className="space-y-3">
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <input
-                placeholder="Search expenses..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border-2 border-purple-100 dark:border-purple-900 rounded-xl bg-white dark:bg-gray-900 focus:outline-none focus:border-purple-500"
-              />
-            </div>
-            
-            <div className="grid grid-cols-3 gap-2">
-              {/* Time Filter */}
-              <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
-                <SelectTrigger className="rounded-xl border-2 border-purple-100">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Time</SelectItem>
-                  <SelectItem value="this-month">This Month</SelectItem>
-                  <SelectItem value="last-3-months">Last 3 Months</SelectItem>
-                  <SelectItem value="last-12-months">Last 12 Months</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              {/* Pet Filter */}
-              <Select value={petFilter} onValueChange={setPetFilter}>
-                <SelectTrigger className="rounded-xl border-2 border-purple-100">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Pets</SelectItem>
-                  {pets.map((pet) => (
-                    <SelectItem key={pet.id} value={pet.id}>
-                      {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              
-              {/* Category Filter */}
-              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="rounded-xl border-2 border-purple-100">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
-                    <SelectItem key={cat} value={cat}>
-                      {categoryEmojis[cat]} {CATEGORY_CONFIG[cat].label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            
-            {/* Results summary */}
-            <div className="flex items-center justify-between pt-2 border-t border-purple-100 dark:border-purple-900">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                {filteredExpenses.length} expense{filteredExpenses.length !== 1 ? 's' : ''} found
-              </span>
-              <span className="text-sm font-bold text-purple-600">
-                Total: ${totalFiltered.toFixed(2)}
-              </span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Expense List */}
-        {filteredExpenses.length > 0 ? (
-          <div className="space-y-3">
-            <AnimatePresence>
-              {filteredExpenses.map((expense) => (
-                <ExpenseCard
-                  key={expense.id}
-                  expense={expense}
-                  pet={pets.find((p) => p.id === expense.petId)}
-                  onEdit={(e) => {
-                    setEditingExpense(e);
-                    setShowFormDialog(true);
-                  }}
-                  onDelete={(id) => setDeletingExpenseId(id)}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <Receipt className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 mb-6">
-              {searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all' 
-                ? "Try adjusting your filters to see more results." 
-                : "Start by logging your first expense."}
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setShowFormDialog(true)}
-              className="bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-3 rounded-full shadow-playful font-bold"
-            >
-              <Plus className="inline mr-2 h-4 w-4" />
-              Log Expense
-            </motion.button>
-          </div>
-        )}
-
-        {/* Add Expense Button */}
-        <div className="mt-8">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setShowFormDialog(true)}
-            className="w-full bg-gradient-to-tr from-purple-600 to-pink-500 text-white px-8 py-4 rounded-full shadow-playful flex items-center justify-center gap-3 font-bold"
-          >
-            <Plus className="w-5 h-5" />
-            Add New Expense
-          </motion.button>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24 lg:pb-12 lg:bg-none lg:bg-background-light lg:dark:bg-background-dark">
+      <div className="lg:hidden">
+        <PageHeader title="Expense History 📝" />
       </div>
 
-      {/* Form Dialog */}
+      {/* Desktop Header */}
+      <div className="hidden lg:flex items-center justify-between px-8 py-6 mb-2">
+        <div>
+          <h1 className="text-3xl font-bold font-display tracking-tight">Expenses</h1>
+          <p className="text-muted-foreground text-sm">Track and manage your pet spending</p>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setShowFormDialog(true)}
+          className="bg-primary text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-primary/25 flex items-center gap-2"
+        >
+          <Plus className="w-5 h-5" />
+          Log New Expense
+        </motion.button>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 lg:pt-0 space-y-6 lg:space-y-0 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+        {/* Left Column: Filters (Sticky on Desktop) */}
+        <div className="lg:col-span-4 lg:sticky lg:top-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white dark:bg-card rounded-3xl p-5 shadow-playful border border-transparent lg:border-border"
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <div className="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <Filter className="h-4 w-4" />
+              </div>
+              <span className="font-bold text-lg">Filters</span>
+            </div>
+
+            <div className="space-y-4">
+              {/* Search */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <input
+                  placeholder="Search expenses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border-2 border-primary/10 rounded-xl bg-gray-50 dark:bg-muted focus:outline-none focus:border-primary transition-smooth touch-target text-sm font-medium"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground ml-1">Time Range</label>
+                    <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
+                      <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Time</SelectItem>
+                        <SelectItem value="this-month">This Month</SelectItem>
+                        <SelectItem value="last-3-months">Last 3M</SelectItem>
+                        <SelectItem value="last-12-months">Last 12M</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground ml-1">Pet</label>
+                    <Select value={petFilter} onValueChange={setPetFilter}>
+                      <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Pets</SelectItem>
+                        {pets.map((pet) => (
+                          <SelectItem key={pet.id} value={pet.id}>
+                            {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-muted-foreground ml-1">Category</label>
+                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                    <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Categories</SelectItem>
+                      {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                          {categoryEmojis[cat]} {CATEGORY_CONFIG[cat].label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+              </div>
+
+              <div className="flex items-center justify-between pt-4 mt-4 border-t border-dashed border-border">
+                <span className="text-sm font-medium text-muted-foreground">
+                  {filteredExpenses.length} record{filteredExpenses.length !== 1 ? 's' : ''}
+                </span>
+                <div className="text-right">
+                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider">Total Spent</p>
+                  <p className="text-xl font-bold text-primary">
+                    ${totalFiltered.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Column: Expense List */}
+        <div className="lg:col-span-8">
+          {filteredExpenses.length > 0 ? (
+            <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+              <AnimatePresence>
+                {filteredExpenses.map((expense) => (
+                  <ExpenseCard
+                    key={expense.id}
+                    expense={expense}
+                    pet={pets.find((p) => p.id === expense.petId)}
+                    onEdit={(e) => {
+                      setEditingExpense(e);
+                      setShowFormDialog(true);
+                    }}
+                    onDelete={(id) => setDeletingExpenseId(id)}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <div className="bg-white dark:bg-card rounded-3xl p-12 text-center border border-border shadow-sm">
+              <div className="size-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+                <Receipt className="size-10 text-muted-foreground" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">No expenses found</h3>
+              <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
+                {searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all'
+                  ? "We couldn't find any expenses matching your filters. Try adjusting them."
+                  : "You haven't logged any expenses yet. Start tracking your pet's spending!"}
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowFormDialog(true)}
+                className="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-primary/25"
+              >
+                <Plus className="inline mr-2 h-4 w-4" />
+                Log First Expense
+              </motion.button>
+            </div>
+          )}
+        </div>
+
+      </div>
+
+      {/* FAB - Fixed with proper positioning (Mobile Only) */}
+
+
       <ExpenseFormDialog
         open={showFormDialog}
         onOpenChange={(open) => {
@@ -332,7 +356,6 @@ export default function ExpensesPage() {
         editingExpense={editingExpense}
       />
 
-      {/* Delete Confirmation */}
       <AlertDialog open={!!deletingExpenseId} onOpenChange={() => setDeletingExpenseId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>

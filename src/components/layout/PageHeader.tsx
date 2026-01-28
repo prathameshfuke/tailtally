@@ -1,104 +1,172 @@
-import { Menu, Bell, Settings as SettingsIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Menu, Bell, X, Home, Receipt, PawPrint, BarChart3, Target, Settings as SettingsIcon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
+import logo from '@/assets/logo.jpeg';
 
 interface PageHeaderProps {
-  title: string;
+  title?: string;
   subtitle?: string;
-  variant?: 'gradient' | 'solid';
+  children?: React.ReactNode;
 }
 
-export function PageHeader({ title, subtitle, variant = 'solid' }: PageHeaderProps) {
+const navItems = [
+  { path: '/', label: 'Dashboard', icon: Home },
+  { path: '/expenses', label: 'Expenses', icon: Receipt },
+  { path: '/budget', label: 'Budget', icon: Target },
+  { path: '/pets', label: 'My Pets', icon: PawPrint },
+  { path: '/analytics', label: 'Analytics', icon: BarChart3 },
+  { path: '/settings', label: 'Settings', icon: SettingsIcon },
+];
+
+export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
   const navigate = useNavigate();
-
-  if (variant === 'gradient') {
-    return (
-      <div className="wavy-header pt-12 pb-20 px-6 relative overflow-hidden">
-        {/* Top Bar */}
-        <div className="flex justify-between items-center mb-8 relative z-10">
-          <div className="flex items-center gap-2">
-            <div className="bg-white/20 p-2 rounded-full backdrop-blur-md">
-              <Menu className="text-white w-5 h-5" />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center overflow-hidden">
-              <img 
-                src="/logo.png" 
-                alt="TailTally" 
-                className="w-full h-full object-contain mix-blend-screen opacity-90"
-              />
-            </div>
-            <h2 className="text-white text-xl font-fredoka font-bold tracking-tight">TailTally</h2>
-          </div>
-          <div className="flex gap-2">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/settings')}
-              className="bg-white/20 p-2 rounded-full backdrop-blur-md"
-            >
-              <SettingsIcon className="text-white w-5 h-5" />
-            </motion.button>
-            <div className="bg-white/20 p-2 rounded-full backdrop-blur-md">
-              <Bell className="text-white w-5 h-5" />
-            </div>
-          </div>
-        </div>
-
-        {/* Title */}
-        <div className="relative z-10 mb-4">
-          <h1 className="text-white text-3xl font-bold leading-tight">{title}</h1>
-          {subtitle && <p className="text-white/80 text-sm mt-1">{subtitle}</p>}
-        </div>
-      </div>
-    );
-  }
+  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm p-4 border-b border-purple-100 dark:border-purple-900/50">
-      <div className="flex items-center justify-between">
+    <>
+      {/* Top App Bar - Sticky & Glassmorphic */}
+      <div className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/')}
+            className="flex-shrink-0"
+          >
+            <img
+              src={logo}
+              alt="TailTally"
+              className="w-10 h-10 rounded-xl object-cover shadow-sm"
+            />
+          </motion.button>
+          <div>
+            {title && (
+              <>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Good Morning!</p>
+                <h1 className="text-lg font-bold leading-tight">{title}</h1>
+              </>
+            )}
+            {!title && (
+              <>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Welcome back!</p>
+                <h1 className="text-lg font-bold leading-tight">TailTally</h1>
+              </>
+            )}
+          </div>
+        </div>
+
         <div className="flex items-center gap-2">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-purple-600 bg-white dark:bg-gray-800 p-2.5 rounded-full shadow-sm"
+            className="size-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center"
           >
-            <Menu className="w-5 h-5" />
-          </motion.button>
-        </div>
-        <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
-              <img 
-                src="/logo.png" 
-                alt="TailTally" 
-                className="w-full h-full object-contain opacity-90"
-                style={{ filter: 'brightness(0) invert(1)' }}
-              />
-            </div>
-            <h2 className="text-purple-600 dark:text-purple-400 text-lg font-fredoka font-bold">TailTally</h2>
-          </div>
-          <p className="text-purple-600/60 dark:text-purple-400/60 text-xs font-bold uppercase tracking-wider">{title}</p>
-        </div>
-        <div className="flex gap-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/settings')}
-            className="text-purple-600 bg-white dark:bg-gray-800 p-2.5 rounded-full shadow-sm"
-          >
-            <SettingsIcon className="w-5 h-5" />
+            <Bell className="text-primary w-5 h-5" />
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-purple-600 bg-white dark:bg-gray-800 p-2.5 rounded-full shadow-sm"
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="size-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center lg:hidden"
           >
-            <Bell className="w-5 h-5" />
+            <Menu className="text-primary w-5 h-5" />
           </motion.button>
         </div>
       </div>
-    </header>
+
+      {/* Additional content (like subtitles or custom sections) */}
+      {children && (
+        <div className="px-4 pb-4">
+          {children}
+        </div>
+      )}
+
+      {/* Mobile Menu Sidebar */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            />
+
+            {/* Sliding Menu */}
+            <motion.nav
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed top-0 left-0 h-full w-72 bg-white dark:bg-gray-900 z-[60] shadow-2xl flex flex-col"
+            >
+              {/* Header */}
+              <div className="gradient-warm p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                      <PawPrint className="text-white w-5 h-5" />
+                    </div>
+                    <h2 className="text-white text-xl font-display font-bold">TailTally</h2>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05, rotate: 90 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="bg-white/20 p-2 rounded-full backdrop-blur-md"
+                  >
+                    <X className="text-white w-5 h-5" />
+                  </motion.button>
+                </div>
+                <p className="text-white/80 text-sm">Your Pet Budget Tracker 🐾</p>
+              </div>
+
+              {/* Menu Items */}
+              <div className="flex-1 p-4 space-y-2 overflow-y-auto">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = location.pathname === item.path;
+
+                  return (
+                    <motion.button
+                      key={item.path}
+                      whileHover={{ x: 4 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        navigate(item.path);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive
+                        ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="font-semibold">{item.label}</span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Footer */}
+              <div className="p-6 border-t border-gray-200 dark:border-gray-800">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Made with ❤️ for pet parents
+                  </p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    Version 1.0.0
+                  </p>
+                </div>
+              </div>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

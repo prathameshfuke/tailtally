@@ -18,8 +18,8 @@ export default {
 		},
 		extend: {
 			colors: {
-				"background-light": "#f6f5f8",
-				"background-dark": "#151022",
+				"background-light": "#FDFCFB", // Warmer, more premium off-white
+				"background-dark": "#0F0F11", // Deeper, richer dark mode bg
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -54,30 +54,30 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				success: {
-					DEFAULT: 'hsl(var(--success))',
-					foreground: 'hsl(var(--success-foreground))'
+					DEFAULT: 'hsl(142, 76%, 36%)', // Richer green
+					foreground: 'hsl(356, 100%, 100%)'
 				},
 				warning: {
-					DEFAULT: 'hsl(var(--warning))',
-					foreground: 'hsl(var(--warning-foreground))'
+					DEFAULT: 'hsl(38, 92%, 50%)', // Amber
+					foreground: 'hsl(48, 96%, 89%)'
 				},
 				info: {
-					DEFAULT: 'hsl(var(--info))',
-					foreground: 'hsl(var(--info-foreground))'
+					DEFAULT: 'hsl(217, 91%, 60%)', // Bright Blue
+					foreground: 'hsl(210, 40%, 98%)'
 				},
 				category: {
-					food: 'hsl(var(--category-food))',
-					healthcare: 'hsl(var(--category-healthcare))',
-					grooming: 'hsl(var(--category-grooming))',
-					toys: 'hsl(var(--category-toys))',
-					training: 'hsl(var(--category-training))',
-					other: 'hsl(var(--category-other))'
+					food: 'hsl(32, 95%, 54%)', // Vibrant Orange
+					healthcare: 'hsl(0, 84%, 60%)', // Soft but bright Red
+					grooming: 'hsl(172, 66%, 50%)', // Teal
+					toys: 'hsl(270, 60%, 52%)', // Purple
+					training: 'hsl(210, 90%, 50%)', // Blue
+					other: 'hsl(240, 5%, 64%)' // Cool Gray
 				},
 				budget: {
-					safe: 'hsl(var(--budget-safe))',
-					warning: 'hsl(var(--budget-warning))',
-					danger: 'hsl(var(--budget-danger))',
-					track: 'hsl(var(--budget-track))'
+					safe: 'hsl(142, 70%, 45%)',
+					warning: 'hsl(40, 90%, 50%)',
+					danger: 'hsl(0, 80%, 55%)',
+					track: 'hsl(240, 5%, 90%)'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -183,10 +183,9 @@ export default {
 			},
 			fontFamily: {
 				"display": ["Spline Sans", "sans-serif"],
-				"fredoka": ["Fredoka", "sans-serif"],
-				"grotesk": ["Space Grotesk", "sans-serif"],
+				"body": ["Spline Sans", "sans-serif"],
 				sans: [
-					'Spline Sans',
+					"Spline Sans",
 					'ui-sans-serif',
 					'system-ui',
 					'-apple-system',
@@ -198,24 +197,6 @@ export default {
 					'Noto Sans',
 					'sans-serif'
 				],
-				serif: [
-					'ui-serif',
-					'Georgia',
-					'Cambria',
-					'Times New Roman',
-					'Times',
-					'serif'
-				],
-				mono: [
-					'ui-monospace',
-					'SFMono-Regular',
-					'Menlo',
-					'Monaco',
-					'Consolas',
-					'Liberation Mono',
-					'Courier New',
-					'monospace'
-				]
 			}
 		}
 	},

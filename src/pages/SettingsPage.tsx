@@ -8,59 +8,59 @@ export default function SettingsPage() {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900 dark:to-pink-900 pb-24">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24">
             <PageHeader title="Settings ⚙️" />
 
-            <div className="px-4 pt-6 space-y-6">
+            <div className="px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <Card className="border-2 border-purple-100 dark:border-purple-900 shadow-playful bg-white dark:bg-gray-800">
+                  <Card className="border-2 border-primary/10 shadow-playful bg-white dark:bg-gray-800">
                       <CardHeader>
-                          <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Theme Preference</CardTitle>
-                          <CardDescription className="text-gray-600 dark:text-gray-400">Choose how TailTally looks to you</CardDescription>
+                          <CardTitle className="text-xl font-bold">Theme Preference</CardTitle>
+                          <CardDescription>Choose how TailTally looks to you</CardDescription>
                       </CardHeader>
                       <CardContent>
                           <div className="grid grid-cols-3 gap-3">
                               <motion.button
                                   whileHover={{ scale: 1.05 }}
                                   whileTap={{ scale: 0.95 }}
-                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all ${
+                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all touch-target ${
                                     theme === 'light' 
-                                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
+                                      ? 'border-primary bg-primary/10' 
                                       : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
                                   }`}
                                   onClick={() => setTheme('light')}
                               >
-                                  <Sun className="h-6 w-6 text-gray-900 dark:text-white" />
-                                  <span className="font-bold text-sm text-gray-900 dark:text-white">Light</span>
+                                  <Sun className="h-6 w-6 text-primary" />
+                                  <span className="font-bold text-sm">Light</span>
                               </motion.button>
                               <motion.button
                                   whileHover={{ scale: 1.05 }}
                                   whileTap={{ scale: 0.95 }}
-                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all ${
+                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all touch-target ${
                                     theme === 'dark' 
-                                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
+                                      ? 'border-primary bg-primary/10' 
                                       : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
                                   }`}
                                   onClick={() => setTheme('dark')}
                               >
-                                  <Moon className="h-6 w-6 text-gray-900 dark:text-white" />
-                                  <span className="font-bold text-sm text-gray-900 dark:text-white">Dark</span>
+                                  <Moon className="h-6 w-6 text-primary" />
+                                  <span className="font-bold text-sm">Dark</span>
                               </motion.button>
                               <motion.button
                                   whileHover={{ scale: 1.05 }}
                                   whileTap={{ scale: 0.95 }}
-                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all ${
+                                  className={`h-24 flex flex-col gap-2 items-center justify-center rounded-xl border-2 transition-all touch-target ${
                                     theme === 'system' 
-                                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
+                                      ? 'border-primary bg-primary/10' 
                                       : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
                                   }`}
                                   onClick={() => setTheme('system')}
                               >
-                                  <Laptop className="h-6 w-6 text-gray-900 dark:text-white" />
-                                  <span className="font-bold text-sm text-gray-900 dark:text-white">System</span>
+                                  <Laptop className="h-6 w-6 text-primary" />
+                                  <span className="font-bold text-sm">System</span>
                               </motion.button>
                           </div>
                       </CardContent>
@@ -72,16 +72,16 @@ export default function SettingsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  <Card className="border-2 border-purple-100 dark:border-purple-900 shadow-playful bg-white dark:bg-gray-800">
+                  <Card className="border-2 border-primary/10 shadow-playful bg-white dark:bg-gray-800">
                       <CardHeader>
-                          <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">About</CardTitle>
-                          <CardDescription className="text-gray-600 dark:text-gray-400">TailTally - Pet Budget Tracker</CardDescription>
+                          <CardTitle className="text-xl font-bold">About</CardTitle>
+                          <CardDescription>TailTally - Pet Budget Tracker</CardDescription>
                       </CardHeader>
                       <CardContent>
                           <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                               <p>Version 1.0.0</p>
                               <p>Track your pet expenses with ease and style.</p>
-                              <p className="text-xs text-gray-500">Made with ❤️ for pet parents everywhere</p>
+                              <p className="text-xs text-gray-500 dark:text-gray-500">Made with ❤️ for pet parents everywhere</p>
                           </div>
                       </CardContent>
                   </Card>
