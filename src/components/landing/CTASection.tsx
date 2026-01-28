@@ -24,7 +24,7 @@ export function CTASection() {
           {/* Background patterns */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-orange-300/20 rounded-full blur-2xl" />
-          
+
           {/* Decorative elements */}
           <div className="absolute top-8 right-8 text-5xl sm:text-6xl opacity-50 animate-bounce-soft">
             🐾

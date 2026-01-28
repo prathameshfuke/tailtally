@@ -120,6 +120,8 @@ export function DogBone3D({ className }: DogBone3DProps) {
         gl={{ antialias: !isMobile }}
         style={{ width: '100%', height: '100%' }}
       >
+
+
         {/* Lighting - neutral white lighting */}
         <ambientLight intensity={0.75} />
         <directionalLight position={[5, 8, 5]} intensity={1.3} castShadow color="#ffffff" />
@@ -144,3 +146,5 @@ export function DogBone3D({ className }: DogBone3DProps) {
     </div>
   );
 }
+
+

@@ -179,8 +179,8 @@ export function HeroSection() {
               ⭐
             </motion.div>
 
-            {/* 3D Canvas with enhanced styling */}
-            <div className="relative z-10 w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-3xl bg-gradient-to-br from-primary/5 via-orange-400/5 to-yellow-300/5 border-2 border-primary/10 shadow-2xl overflow-hidden backdrop-blur-sm">
+            {/* 3D Canvas with enhanced styling - SQUARE container for perfect centering */}
+            <div className="relative z-10 w-full aspect-square max-w-[500px] mx-auto rounded-3xl bg-gradient-to-br from-primary/5 via-orange-400/5 to-yellow-300/5 border-2 border-primary/10 shadow-2xl overflow-hidden backdrop-blur-sm flex items-center justify-center">
               <DogBone3D className="w-full h-full absolute inset-0" />
 
               {/* Interaction hint with improved styling */}
