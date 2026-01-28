@@ -14,7 +14,7 @@ interface AppLayoutProps {
 }
 
 const navItems = [
-  { path: '/', label: 'Home', icon: Home },
+  { path: '/dashboard', label: 'Home', icon: Home },
   { path: '/expenses', label: 'Expenses', icon: Receipt },
   { path: '/budget', label: 'Budget', icon: Target },
   { path: '/pets', label: 'Pets', icon: PawPrint },

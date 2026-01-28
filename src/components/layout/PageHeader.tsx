@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, Bell, X, Home, Receipt, PawPrint, BarChart3, Target, Settings as SettingsIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import logo from '@/assets/logo.jpeg';
 
 interface PageHeaderProps {
@@ -22,6 +23,7 @@ const navItems = [
 export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -62,6 +64,12 @@ export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="size-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center"
+            onClick={() => {
+              toast({
+                title: "No new notifications",
+                description: "You're all caught up! 🎉",
+              });
+            }}
           >
             <Bell className="text-primary w-5 h-5" />
           </motion.button>

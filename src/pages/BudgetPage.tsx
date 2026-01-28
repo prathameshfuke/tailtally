@@ -186,7 +186,7 @@ export default function BudgetPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark pb-32 lg:pb-12">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark lg:pb-12">
       <div>
         <PageHeader title="Budget Tracker" />
       </div>
@@ -435,17 +435,7 @@ export default function BudgetPage() {
                         <div className="absolute inset-0 shimmer"></div>
                       </motion.div>
 
-                      {/* Milestone Marker */}
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        whileHover={{ scale: 1.2, rotate: 15 }}
-                        transition={{ delay: 0.3, type: 'spring' }}
-                        className="absolute top-1/2 -translate-y-1/2 -ml-3 size-8 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-primary cursor-pointer z-10"
-                        style={{ left: `${Math.min(percentage, 100)}%`, transform: 'translateX(-50%)' }}
-                      >
-                        <span className="text-xs">{milestoneEmojis[category]}</span>
-                      </motion.div>
+
                     </div>
                   </motion.div>
                 );

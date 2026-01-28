@@ -72,7 +72,7 @@ export default function Dashboard() {
   const percentChange = ((stats.total - lastMonthTotal) / lastMonthTotal) * 100;
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark pb-32 lg:pb-12">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark lg:pb-12">
       <div>
         <PageHeader title="Pet Parent" />
       </div>

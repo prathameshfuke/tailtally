@@ -8,7 +8,7 @@ export default function SettingsPage() {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20">
             <div>
                 <PageHeader title="Settings ⚙️" />
             </div>
@@ -80,7 +80,7 @@ export default function SettingsPage() {
                             <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
                                 <p>Version 1.0.0</p>
                                 <p>Track your pet expenses with ease and style.</p>
-                                <p className="text-xs text-gray-500 dark:text-gray-500">Made with ❤️ for pet parents everywhere</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-500">Made for pet parents everywhere</p>
                             </div>
                         </CardContent>
                     </Card>

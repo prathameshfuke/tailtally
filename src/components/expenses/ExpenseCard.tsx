@@ -28,42 +28,42 @@ export function ExpenseCard({ expense, pet, onEdit, onDelete }: ExpenseCardProps
         'group overflow-hidden transition-all hover:shadow-md',
         `border-l-4`
       )} style={{ borderLeftColor: categoryConfig.color }}>
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4">
+          <div className="flex items-start sm:items-center gap-4">
             {/* Pet Avatar */}
             {pet && (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-xl">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-xl">
                 {PET_TYPE_CONFIG[pet.type].emoji}
               </div>
             )}
-            
+
             {/* Details */}
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
+            <div className="space-y-1 min-w-0 flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
                 <CategoryBadge category={expense.category} size="sm" />
                 {pet && (
-                  <span className="text-sm text-muted-foreground">• {pet.name}</span>
+                  <span className="text-sm text-muted-foreground whitespace-nowrap">• {pet.name}</span>
                 )}
               </div>
               <p className="text-sm text-muted-foreground">
                 {format(new Date(expense.date), 'MMM d, yyyy')}
               </p>
               {expense.notes && (
-                <p className="text-sm text-muted-foreground line-clamp-1">
+                <p className="text-sm text-muted-foreground line-clamp-1 break-all">
                   {expense.notes}
                 </p>
               )}
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto mt-2 sm:mt-0 pl-[3.5rem] sm:pl-0">
             {/* Amount */}
             <span className="text-xl font-bold text-primary">
               ${expense.amount.toFixed(2)}
             </span>
-            
+
             {/* Actions */}
-            <div className="flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+            <div className="flex gap-1 opacity-100 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
               <Button
                 size="icon"
                 variant="ghost"

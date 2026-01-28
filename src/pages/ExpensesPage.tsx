@@ -180,7 +180,7 @@ export default function ExpensesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24 lg:pb-12 lg:bg-none lg:bg-background-light lg:dark:bg-background-dark">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 lg:pb-12 lg:bg-none lg:bg-background-light lg:dark:bg-background-dark">
       <div>
         <PageHeader title="Expense History 📝" />
       </div>
@@ -207,7 +207,7 @@ export default function ExpensesPage() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-card rounded-3xl p-6 shadow-sm border border-border mb-8 sticky top-20 z-30"
+          className="bg-white dark:bg-card rounded-3xl p-6 shadow-sm border border-border mb-8 lg:sticky lg:top-20 z-30"
         >
           <div className="flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
             {/* Search */}
@@ -222,9 +222,9 @@ export default function ExpensesPage() {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap gap-3 flex-1 lg:justify-end">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 flex-1 lg:justify-end">
               <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
-                <SelectTrigger className="w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                <SelectTrigger className="w-full sm:w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -236,7 +236,7 @@ export default function ExpensesPage() {
               </Select>
 
               <Select value={petFilter} onValueChange={setPetFilter}>
-                <SelectTrigger className="w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                <SelectTrigger className="w-full sm:w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
                   <SelectValue placeholder="All Pets" />
                 </SelectTrigger>
                 <SelectContent>
@@ -250,7 +250,7 @@ export default function ExpensesPage() {
               </Select>
 
               <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                <SelectTrigger className="w-[160px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                <SelectTrigger className="w-full sm:w-[160px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
