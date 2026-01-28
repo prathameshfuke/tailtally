@@ -187,7 +187,7 @@ export default function BudgetPage() {
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark pb-32 lg:pb-12">
-      <div className="lg:hidden">
+      <div>
         <PageHeader title="Budget Tracker" />
       </div>
 

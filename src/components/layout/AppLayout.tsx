@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Home, Receipt, PawPrint, BarChart3, Target, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Sidebar } from './Sidebar';
+
 import { ExpenseFormDialog } from '@/components/expenses/ExpenseFormDialog';
 import { usePets, useExpenses } from '@/hooks/usePetData';
 import { useToast } from '@/hooks/use-toast';
@@ -50,12 +50,8 @@ export function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className="min-h-screen font-display bg-background-light dark:bg-background-dark flex">
-      {/* Desktop Sidebar */}
-      <Sidebar />
-
-      {/* Main Content - Add padding for bottom nav on mobile, margin-left for sidebar on desktop */}
-      {/* Main Content - Add padding for bottom nav on mobile, margin-left for sidebar on desktop */}
-      <main className="flex-1 pb-32 lg:pb-0 lg:ml-72 min-h-screen">
+      {/* Main Content - Add padding for bottom nav on mobile */}
+      <main className="flex-1 pb-32 lg:pb-0 min-h-screen">
         <motion.div
           key={location.pathname}
           initial={{ opacity: 0, scale: 0.98, y: 10 }}

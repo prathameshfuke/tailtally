@@ -181,7 +181,7 @@ export default function ExpensesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24 lg:pb-12 lg:bg-none lg:bg-background-light lg:dark:bg-background-dark">
-      <div className="lg:hidden">
+      <div>
         <PageHeader title="Expense History 📝" />
       </div>
 
@@ -202,144 +202,138 @@ export default function ExpensesPage() {
         </motion.button>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 lg:pt-0 space-y-6 lg:space-y-0 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
-        {/* Left Column: Filters (Sticky on Desktop) */}
-        <div className="lg:col-span-4 lg:sticky lg:top-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-card rounded-3xl p-5 shadow-playful border border-transparent lg:border-border"
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <div className="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                <Filter className="h-4 w-4" />
-              </div>
-              <span className="font-bold text-lg">Filters</span>
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6 lg:pt-0 pb-12">
+        {/* Top Filter Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-card rounded-3xl p-6 shadow-sm border border-border mb-8 sticky top-20 z-30"
+        >
+          <div className="flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
+            {/* Search */}
+            <div className="relative flex-1 min-w-[300px]">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <input
+                placeholder="Search by note, pet, or category..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border-2 border-border/50 rounded-2xl bg-gray-50/50 dark:bg-muted/50 focus:outline-none focus:border-primary focus:bg-white dark:focus:bg-card transition-all"
+              />
             </div>
 
-            <div className="space-y-4">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                <input
-                  placeholder="Search expenses..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border-2 border-primary/10 rounded-xl bg-gray-50 dark:bg-muted focus:outline-none focus:border-primary transition-smooth touch-target text-sm font-medium"
+            {/* Filters */}
+            <div className="flex flex-wrap gap-3 flex-1 lg:justify-end">
+              <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
+                <SelectTrigger className="w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Time</SelectItem>
+                  <SelectItem value="this-month">This Month</SelectItem>
+                  <SelectItem value="last-3-months">Last 3 Months</SelectItem>
+                  <SelectItem value="last-12-months">Last Year</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={petFilter} onValueChange={setPetFilter}>
+                <SelectTrigger className="w-[140px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                  <SelectValue placeholder="All Pets" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Pets</SelectItem>
+                  {pets.map((pet) => (
+                    <SelectItem key={pet.id} value={pet.id}>
+                      {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="w-[160px] h-12 rounded-xl border-2 border-border/50 bg-white dark:bg-muted/50 font-medium">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
+                    <SelectItem key={cat} value={cat}>
+                      {categoryEmojis[cat]} {CATEGORY_CONFIG[cat].label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Total Pill */}
+            <div className="hidden lg:flex flex-col items-end border-l pl-6 border-gray-200 dark:border-gray-800">
+              <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Total</span>
+              <span className="text-xl font-black text-primary font-display">${totalFiltered.toFixed(2)}</span>
+            </div>
+          </div>
+
+          {/* Mobile Total (Visible only on mobile) */}
+          <div className="mt-4 pt-4 border-t lg:hidden flex justify-between items-center">
+            <span className="font-medium text-muted-foreground">Found {filteredExpenses.length} records</span>
+            <span className="text-lg font-bold text-primary">${totalFiltered.toFixed(2)}</span>
+          </div>
+        </motion.div>
+
+        {/* Filters Summary & Count (Desktop) */}
+        <div className="flex items-center justify-between mb-6 px-2">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+            {filteredExpenses.length > 0 ? 'Recent Transactions' : 'No Transactions'}
+          </h2>
+          <span className="text-sm font-medium text-muted-foreground bg-white dark:bg-card px-3 py-1 rounded-full shadow-sm border">
+            {filteredExpenses.length} records found
+          </span>
+        </div>
+
+        {/* Expense Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode='popLayout'>
+            {filteredExpenses.length > 0 ? (
+              filteredExpenses.map((expense) => (
+                <ExpenseCard
+                  key={expense.id}
+                  expense={expense}
+                  pet={pets.find((p) => p.id === expense.petId)}
+                  onEdit={(e) => {
+                    setEditingExpense(e);
+                    setShowFormDialog(true);
+                  }}
+                  onDelete={(id) => setDeletingExpenseId(id)}
                 />
-              </div>
-
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-muted-foreground ml-1">Time Range</label>
-                    <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
-                      <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Time</SelectItem>
-                        <SelectItem value="this-month">This Month</SelectItem>
-                        <SelectItem value="last-3-months">Last 3M</SelectItem>
-                        <SelectItem value="last-12-months">Last 12M</SelectItem>
-                      </SelectContent>
-                    </Select>
+              ))
+            ) : (
+              <div className="col-span-full py-12">
+                <div className="bg-white dark:bg-card rounded-3xl p-12 text-center border border-dashed border-gray-300 dark:border-gray-700 mx-auto max-w-lg">
+                  <div className="size-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Filter className="size-10 text-primary/40" />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-muted-foreground ml-1">Pet</label>
-                    <Select value={petFilter} onValueChange={setPetFilter}>
-                      <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Pets</SelectItem>
-                        {pets.map((pet) => (
-                          <SelectItem key={pet.id} value={pet.id}>
-                            {PET_TYPE_CONFIG[pet.type].emoji} {pet.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-muted-foreground ml-1">Category</label>
-                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                    <SelectTrigger className="w-full h-11 rounded-xl border-2 border-border bg-white dark:bg-muted text-sm font-medium">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Categories</SelectItem>
-                      {(Object.keys(CATEGORY_CONFIG) as ExpenseCategory[]).map((cat) => (
-                        <SelectItem key={cat} value={cat}>
-                          {categoryEmojis[cat]} {CATEGORY_CONFIG[cat].label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-              </div>
-
-              <div className="flex items-center justify-between pt-4 mt-4 border-t border-dashed border-border">
-                <span className="text-sm font-medium text-muted-foreground">
-                  {filteredExpenses.length} record{filteredExpenses.length !== 1 ? 's' : ''}
-                </span>
-                <div className="text-right">
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider">Total Spent</p>
-                  <p className="text-xl font-bold text-primary">
-                    ${totalFiltered.toFixed(2)}
+                  <h3 className="text-xl font-bold mb-2">No matching expenses</h3>
+                  <p className="text-muted-foreground mb-8">
+                    {searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all'
+                      ? "We couldn't find any transactions matching your current filters. Try resetting them."
+                      : "You haven't logged any expenses yet."}
                   </p>
+                  {(searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all') && (
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setTimeFilter('all');
+                        setPetFilter('all');
+                        setCategoryFilter('all');
+                      }}
+                      className="text-primary font-bold hover:underline"
+                    >
+                      Clear all filters
+                    </button>
+                  )}
                 </div>
               </div>
-            </div>
-          </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-
-        {/* Right Column: Expense List */}
-        <div className="lg:col-span-8">
-          {filteredExpenses.length > 0 ? (
-            <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
-              <AnimatePresence>
-                {filteredExpenses.map((expense) => (
-                  <ExpenseCard
-                    key={expense.id}
-                    expense={expense}
-                    pet={pets.find((p) => p.id === expense.petId)}
-                    onEdit={(e) => {
-                      setEditingExpense(e);
-                      setShowFormDialog(true);
-                    }}
-                    onDelete={(id) => setDeletingExpenseId(id)}
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
-          ) : (
-            <div className="bg-white dark:bg-card rounded-3xl p-12 text-center border border-border shadow-sm">
-              <div className="size-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-                <Receipt className="size-10 text-muted-foreground" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">No expenses found</h3>
-              <p className="text-muted-foreground mb-8 max-w-sm mx-auto">
-                {searchQuery || timeFilter !== 'all' || petFilter !== 'all' || categoryFilter !== 'all'
-                  ? "We couldn't find any expenses matching your filters. Try adjusting them."
-                  : "You haven't logged any expenses yet. Start tracking your pet's spending!"}
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowFormDialog(true)}
-                className="bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-primary/25"
-              >
-                <Plus className="inline mr-2 h-4 w-4" />
-                Log First Expense
-              </motion.button>
-            </div>
-          )}
-        </div>
-
       </div>
 
       {/* FAB - Fixed with proper positioning (Mobile Only) */}

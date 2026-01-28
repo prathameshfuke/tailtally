@@ -92,7 +92,7 @@ export default function AnalyticsPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 dark:from-gray-900 dark:via-orange-900/20 dark:to-yellow-900/20 pb-24 lg:pb-12 lg:bg-none lg:bg-background-light lg:dark:bg-background-dark">
-            <div className="lg:hidden">
+            <div>
                 <PageHeader title="Analytics 📊" />
             </div>
 
