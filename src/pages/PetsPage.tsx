@@ -262,17 +262,7 @@ export default function PetsPage() {
         )}
       </main>
 
-      {/* FAB - Only on mobile when there are pets */}
-      {pets.length > 0 && (
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowFormDialog(true)}
-          className="lg:hidden fixed bottom-24 right-6 z-50 w-16 h-16 gradient-warm text-white rounded-full shadow-playful-fab flex items-center justify-center border-4 border-white/30 backdrop-blur-sm pb-safe"
-        >
-          <Plus className="w-8 h-8" strokeWidth={3} />
-        </motion.button>
-      )}
+
 
       <PetFormDialog
         open={showFormDialog}
