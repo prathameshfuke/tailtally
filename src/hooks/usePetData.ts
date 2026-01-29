@@ -7,7 +7,7 @@ export const INITIAL_PETS: Pet[] = [];
 export const INITIAL_EXPENSES: Expense[] = [];
 
 export function usePets() {
-  const [pets, setPets] = useLocalStorage<Pet[]>('pet-expenses-pets-v2', INITIAL_PETS);
+  const [pets, setPets] = useLocalStorage<Pet[]>('pet-expenses-pets-v3', INITIAL_PETS);
 
   const addPet = (pet: Omit<Pet, 'id' | 'dateAdded'>) => {
     const newPet: Pet = {
@@ -31,7 +31,7 @@ export function usePets() {
 }
 
 export function useExpenses() {
-  const [expenses, setExpenses] = useLocalStorage<Expense[]>('pet-expenses-expenses-v2', INITIAL_EXPENSES);
+  const [expenses, setExpenses] = useLocalStorage<Expense[]>('pet-expenses-expenses-v3', INITIAL_EXPENSES);
 
   const addExpense = (expense: Omit<Expense, 'id'>) => {
     const newExpense: Expense = {
@@ -77,7 +77,7 @@ export function useExpenses() {
 }
 
 export function useBudgets() {
-  const [budgets, setBudgets] = useLocalStorage<Budget[]>('pet-expenses-budgets', []);
+  const [budgets, setBudgets] = useLocalStorage<Budget[]>('pet-expenses-budgets-v3', []);
 
   const setBudget = (petId: string, category: ExpenseCategory, monthlyLimit: number) => {
     const existing = budgets.find((b) => b.petId === petId && b.category === category);
@@ -111,7 +111,7 @@ export function useBudgets() {
 }
 
 export function useRecurringExpenses() {
-  const [recurring, setRecurring] = useLocalStorage<RecurringExpense[]>('pet-expenses-recurring', []);
+  const [recurring, setRecurring] = useLocalStorage<RecurringExpense[]>('pet-expenses-recurring-v3', []);
 
   const addRecurring = (expense: Omit<RecurringExpense, 'id' | 'paidThisMonth'>) => {
     const newRecurring: RecurringExpense = {
@@ -149,10 +149,10 @@ export function useRecurringExpenses() {
 }
 
 export function useDataExport() {
-  const [pets] = useLocalStorage<Pet[]>('pet-expenses-pets', []);
-  const [expenses] = useLocalStorage<Expense[]>('pet-expenses-expenses', []);
-  const [budgets] = useLocalStorage<Budget[]>('pet-expenses-budgets', []);
-  const [recurring] = useLocalStorage<RecurringExpense[]>('pet-expenses-recurring', []);
+  const [pets] = useLocalStorage<Pet[]>('pet-expenses-pets-v3', []);
+  const [expenses] = useLocalStorage<Expense[]>('pet-expenses-expenses-v3', []);
+  const [budgets] = useLocalStorage<Budget[]>('pet-expenses-budgets-v3', []);
+  const [recurring] = useLocalStorage<RecurringExpense[]>('pet-expenses-recurring-v3', []);
 
   const exportToJSON = () => {
     const data = { pets, expenses, budgets, recurring, exportedAt: new Date().toISOString() };
