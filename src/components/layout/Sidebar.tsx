@@ -2,7 +2,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Home, Receipt, PawPrint, BarChart3, Target, LogOut, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
-import logo from '@/assets/logo.jpeg';
 import { useState, useEffect } from 'react';
 
 const navItems = [
@@ -37,7 +36,7 @@ export function Sidebar() {
         <div className="hidden lg:flex h-screen w-72 flex-col fixed left-0 top-0 border-r border-border bg-card/50 backdrop-blur-xl z-50">
             <div className="p-6">
                 <div className="flex items-center gap-3 mb-8">
-                    <img src={logo} alt="TailTally Logo" className="size-10 rounded-xl shadow-lg shadow-primary/20 object-cover" />
+                    <img src="/logo.jpeg" alt="TailTally Logo" className="size-10 rounded-xl shadow-lg shadow-primary/20 object-cover" />
                     <div>
                         <h1 className="text-xl font-bold font-display tracking-tight">TailTally</h1>
                         <p className="text-xs text-muted-foreground font-medium">Pro Edition</p>

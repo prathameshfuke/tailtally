@@ -13,12 +13,13 @@ export function LandingNav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
+// ... (previous lines)
           <Link to="/" className="flex items-center gap-3 group">
-            <motion.img 
+            <motion.img
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              src="/src/assets/logo.jpeg" 
-              alt="TailTally Logo" 
+              src="/logo.jpeg"
+              alt="TailTally Logo"
               className="size-10 sm:size-12 rounded-full object-cover shadow-lg group-hover:shadow-xl transition-shadow ring-2 ring-primary/20 group-hover:ring-primary/40"
             />
             <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary via-orange-500 to-orange-600 bg-clip-text text-transparent">

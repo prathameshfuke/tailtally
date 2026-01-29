@@ -3,7 +3,6 @@ import { Menu, Bell, X, Home, Receipt, PawPrint, BarChart3, Target, Settings as 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import logo from '@/assets/logo.jpeg';
 
 interface PageHeaderProps {
   title?: string;
@@ -12,7 +11,7 @@ interface PageHeaderProps {
 }
 
 const navItems = [
-  { path: '/', label: 'Dashboard', icon: Home },
+  { path: '/dashboard', label: 'Dashboard', icon: Home },
   { path: '/expenses', label: 'Expenses', icon: Receipt },
   { path: '/budget', label: 'Budget', icon: Target },
   { path: '/pets', label: 'My Pets', icon: PawPrint },
@@ -38,7 +37,7 @@ export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
             className="flex-shrink-0"
           >
             <img
-              src={logo}
+              src="/logo.jpeg"
               alt="TailTally"
               className="w-10 h-10 rounded-xl object-cover shadow-sm"
             />
