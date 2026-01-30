@@ -29,36 +29,15 @@ export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
     <>
       {/* Top App Bar - Sticky & Glassmorphic */}
       <div className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/')}
-            className="flex-shrink-0"
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="size-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center"
           >
-            <img
-              src="/logo.jpeg"
-              alt="TailTally"
-              className="w-10 h-10 rounded-xl object-cover shadow-sm"
-            />
+            <Menu className="text-primary w-5 h-5" />
           </motion.button>
-          <div>
-            {title && (
-              <>
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Good Morning!</p>
-                <h1 className="text-lg font-bold leading-tight">{title}</h1>
-              </>
-            )}
-            {!title && (
-              <>
-                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Welcome back!</p>
-                <h1 className="text-lg font-bold leading-tight">TailTally</h1>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -72,13 +51,34 @@ export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
           >
             <Bell className="text-primary w-5 h-5" />
           </motion.button>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            {title && (
+              <>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Good Morning!</p>
+                <h1 className="text-lg font-bold leading-tight">{title}</h1>
+              </>
+            )}
+            {!title && (
+              <>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400">Welcome back!</p>
+                <h1 className="text-lg font-bold leading-tight">TailTally</h1>
+              </>
+            )}
+          </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="size-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center"
+            onClick={() => navigate('/')}
+            className="flex-shrink-0"
           >
-            <Menu className="text-primary w-5 h-5" />
+            <img
+              src="/logo.jpeg"
+              alt="TailTally"
+              className="w-10 h-10 rounded-xl object-cover shadow-sm"
+            />
           </motion.button>
         </div>
       </div>
