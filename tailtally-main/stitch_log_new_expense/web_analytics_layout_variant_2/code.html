@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Web Analytics Layout Variant 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(137, 90, 246, 0.15) 0%, rgba(137, 90, 246, 0) 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-[#131118] dark:text-white">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-white dark:bg-background-dark border-b-2 border-primary/20">
+<div class="flex items-center p-4 justify-between max-w-md mx-auto">
+<div class="flex size-10 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 ring-2 ring-primary/30" data-alt="User profile avatar with professional look" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdtBFbCVyhCe3KN3G7X-2TntuHGhJ5yIOMLYWrUpTrWTBCWZOvDrbjZ1RzS2AXAGO0mZZBiNgMdDq-EcDCyPKiPeV1WkkmN9MMzktZN-rXZUoWZdmaxiNQuJzq7mgTApX3jcje1aXtDnPM9dFrmeC7rlTAKpzo5dswRUadiUhcWNBqeFHbUT8nGoG7Vors9izDVichLXYgbMvgFbccmKz-KO3jSZKgUtvvb1MZscYrVVoZRcf4ouKEOJ9vMf6kkC94iRyc6qTyd6E");'></div>
+</div>
+<h2 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 px-3">Analytics</h2>
+<div class="flex gap-2 items-center">
+<button class="flex size-10 items-center justify-center rounded-xl bg-transparent text-[#131118] dark:text-white">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-xl bg-transparent text-[#131118] dark:text-white relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-md mx-auto pb-24">
+<!-- SectionHeader: Pet Selection -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-[#131118] dark:text-white text-base font-bold leading-tight">Switch Pet Profile</h3>
+</div>
+<!-- StoryCarousel: Pet Selector -->
+<div class="flex w-full overflow-x-auto no-scrollbar px-4 py-3">
+<div class="flex flex-row items-start justify-start gap-5">
+<div class="flex flex-col items-center gap-2 w-16 group cursor-pointer">
+<div class="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full ring-4 ring-primary ring-offset-2 dark:ring-offset-background-dark" data-alt="Golden Retriever puppy portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpgejgI3DQGUNat4hRUxnY-WtsaM76wafz3Aqr8Nj4FNbJqFYsm3Mi5_u6VaF3UHRRAjwxXPXaeyDlXgS_SoqdM2RK6Ptr0GysFH0NK9uW-TmQMPH9nYVpsKg188NxzIcQdlHAYaYXcXORI4IOA0BkYa3UQI6Vek7CH-eOjPIPjk_TWmkwe_jC3dXWwvT6gIEHG19Uvt8EnfkDPpCFrQo53RsfNJ7ImvJVrgd1pbupPb_7OtedGHqhbXrBMlkCSIY66BeWOKfYoYs");'></div>
+<p class="text-primary text-[13px] font-bold">Buddy</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-16 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full ring-2 ring-transparent" data-alt="Black and white kitten sitting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAzsIFZiRIzg1XSCYlmpdySHhz6ZPZCc0JuqTV1fyErV45CDwv5idLpgfDf_bSMzNmJXbjFoi9jL9CJAredbh-lD6wovu86M1LBIk8bnpOP5vTZEUon_yoVLXdl4kHy8Rfo4-bPXJTaMlFRXic65-7-UlrpDaAYZAFiOKD0CheuGMA_8BQTrEYikC2txwez4FMCvHpS-yl4Q0TS0EqZsVoWhLLMX7leWt619ofLVurohENxGOdjbmt4-RaLZKfjlR2W0MwuJXCkGzI");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-medium">Luna</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-16 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full ring-2 ring-transparent" data-alt="Fluffy grey bunny on grass" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtGiJdeBklzicK7RmLuM-jk72iPcnBTyKg0Ose6o3c5tjbuc8OjIpRDzeZgGPAHUWQWBUa8Xl_CCWmBxABO42tBPydLa0MOVHCLeXrBOcL1WZv9USHS6vqiVg5S-ClkY8QU6HLl1fAyF8NaPXP84BK_3-VJKJR5esabZRkCr-Uw5Ywnls1f_ZN_WdOC4hOSJOlhdKbRcUBq_uxh20AF9zbH9Njog8B4bCC3nIwr5DGWrcshbYKrh6aXK7Ahw8jDYcX97oS88JK4aM");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-medium">Max</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-16 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-16 h-16 bg-center bg-no-repeat bg-cover rounded-full ring-2 ring-transparent" data-alt="Colorful parrot on branch" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACJGaMXIkcziNXy6hbtxzgPiZAHkEMRjRHLMsVmGae-zRJYAc29ShMdZyE1gQ0y8cNspYR-rosD1sGeW184Dj1H4KBzRGO5UWLJaPsfZDKZW10k5NltqJlMJZJbmCTVGzQTL9f6LF-My7CoXfvyBtN7mfgBz2v75bM4Sj8W6hAPEopEVsJ02KKmQ6ejTwK4CMKMYMgde0GB1NdajE3q8m0Uqo5jbv9LAmqHtyleaCft3xaRWs25TBN00oKxPc_e4iICsrqhyPBYEQ");'></div>
+<p class="text-[#131118] dark:text-white text-[13px] font-medium">Rio</p>
+</div>
+</div>
+</div>
+<!-- Stats Grid (Column 1 Equivalent) -->
+<div class="p-4 grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-white dark:bg-background-dark/50 border border-[#dedbe6] dark:border-white/10">
+<p class="text-[#6d608a] dark:text-white/60 text-xs font-medium uppercase tracking-wider">Budget</p>
+<p class="text-[#131118] dark:text-white text-xl font-bold leading-tight">$1,200</p>
+<div class="flex items-center gap-1 text-[#6d608a] dark:text-white/40 text-[11px] mt-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>This Month</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-white dark:bg-background-dark/50 border border-[#dedbe6] dark:border-white/10">
+<p class="text-[#6d608a] dark:text-white/60 text-xs font-medium uppercase tracking-wider">Spent</p>
+<p class="text-[#131118] dark:text-white text-xl font-bold leading-tight">$845</p>
+<div class="flex items-center gap-1 text-[#078845] text-[11px] mt-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+12%</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-white dark:bg-background-dark/50 border border-[#dedbe6] dark:border-white/10">
+<p class="text-[#6d608a] dark:text-white/60 text-xs font-medium uppercase tracking-wider">Left</p>
+<p class="text-[#131118] dark:text-white text-xl font-bold leading-tight">$355</p>
+<div class="flex items-center gap-1 text-[#e74408] text-[11px] mt-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-5%</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-white dark:bg-background-dark/50 border border-[#dedbe6] dark:border-white/10">
+<p class="text-[#6d608a] dark:text-white/60 text-xs font-medium uppercase tracking-wider">Daily Avg</p>
+<p class="text-[#131118] dark:text-white text-xl font-bold leading-tight">$28</p>
+<div class="flex items-center gap-1 text-[#078845] text-[11px] mt-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+2%</span>
+</div>
+</div>
+</div>
+<!-- Main Chart Section (Column 2 Equivalent) -->
+<div class="px-4 py-2">
+<div class="bg-white dark:bg-background-dark border border-[#dedbe6] dark:border-white/10 rounded-xl p-5 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h4 class="text-[#131118] dark:text-white font-bold text-base">Spending Trends</h4>
+<p class="text-xs text-[#6d608a] dark:text-white/50">Last 6 months overview</p>
+</div>
+<div class="bg-primary/10 px-3 py-1 rounded-full">
+<span class="text-primary text-[10px] font-bold uppercase tracking-widest">Total: $5.2k</span>
+</div>
+</div>
+<!-- Custom Line Chart Mockup -->
+<div class="relative h-48 w-full">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between opacity-10">
+<div class="border-t border-black dark:border-white w-full"></div>
+<div class="border-t border-black dark:border-white w-full"></div>
+<div class="border-t border-black dark:border-white w-full"></div>
+<div class="border-t border-black dark:border-white w-full"></div>
+</div>
+<!-- SVG Chart Path -->
+<svg class="absolute inset-0 h-full w-full overflow-visible" preserveaspectratio="none">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#895af6" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#895af6" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area Fill -->
+<path d="M0 160 L60 140 L120 170 L180 90 L240 110 L300 60 L360 80 V192 H0 Z" fill="url(#chartGradient)"></path>
+<!-- Line Path -->
+<path d="M0 160 L60 140 L120 170 L180 90 L240 110 L300 60 L360 80" fill="none" stroke="#895af6" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle cx="180" cy="90" fill="#895af6" r="5"></circle>
+<circle cx="300" cy="60" fill="#895af6" r="5"></circle>
+</svg>
+<!-- X-Axis Labels -->
+<div class="absolute bottom-[-24px] left-0 right-0 flex justify-between px-2">
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">Jan</span>
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">Feb</span>
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">Mar</span>
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">Apr</span>
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">May</span>
+<span class="text-[10px] font-semibold text-[#6d608a] dark:text-white/40 uppercase">Jun</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Feed (Column 3 Equivalent) -->
+<div class="px-4 mt-10">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-[#131118] dark:text-white text-base font-bold">Recent Activity</h3>
+<button class="text-primary text-sm font-semibold">See All</button>
+</div>
+<div class="space-y-3">
+<!-- Activity Item 1 -->
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark p-3 rounded-xl border border-[#dedbe6] dark:border-white/10 shadow-sm">
+<div class="size-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#131118] dark:text-white">Premium Kibble 5kg</p>
+<p class="text-[11px] text-[#6d608a] dark:text-white/50">Pet Food • Today, 2:45 PM</p>
+</div>
+<p class="text-sm font-bold text-[#131118] dark:text-white">-$64.00</p>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark p-3 rounded-xl border border-[#dedbe6] dark:border-white/10 shadow-sm">
+<div class="size-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#131118] dark:text-white">Vaccination Booster</p>
+<p class="text-[11px] text-[#6d608a] dark:text-white/50">Vet &amp; Medical • Yesterday</p>
+</div>
+<p class="text-sm font-bold text-[#131118] dark:text-white">-$120.00</p>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex items-center gap-4 bg-white dark:bg-background-dark p-3 rounded-xl border border-[#dedbe6] dark:border-white/10 shadow-sm">
+<div class="size-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">toys</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#131118] dark:text-white">Chew Toy Bundle</p>
+<p class="text-[11px] text-[#6d608a] dark:text-white/50">Toys &amp; Accessories • 3 days ago</p>
+</div>
+<p class="text-sm font-bold text-[#131118] dark:text-white">-$32.50</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-6 right-6 size-14 bg-primary text-white rounded-full shadow-lg shadow-primary/40 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-t border-[#dedbe6] dark:border-white/10 pb-6 pt-2">
+<div class="max-w-md mx-auto flex justify-around items-center">
+<button class="flex flex-col items-center gap-1 opacity-40">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">insights</span>
+<span class="text-[10px] font-bold">Analytics</span>
+</button>
+<button class="flex flex-col items-center gap-1 opacity-40">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 opacity-40">
+<span class="material-symbols-outlined">pets</span>
+<span class="text-[10px] font-bold">Pets</span>
+</button>
+</div>
+</nav>
+</body></html>

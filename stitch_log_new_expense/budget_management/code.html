@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pet Budget Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                        "success": "#10b981",
+                        "warning": "#f59e0b",
+                        "danger": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#131118] dark:text-white min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center p-4 pb-4 justify-between max-w-md mx-auto">
+<h2 class="text-[#131118] dark:text-white text-xl font-bold leading-tight tracking-tight">Budgets</h2>
+<button class="bg-primary text-white text-sm font-bold py-2 px-4 rounded-full flex items-center gap-1 shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                Set Budget
+            </button>
+</div>
+</header>
+<main class="flex-1 max-w-md mx-auto w-full pb-24">
+<!-- Monthly Stats Overview -->
+<div class="p-4">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-[#1f1a2e] shadow-sm border border-gray-100 dark:border-gray-800">
+<p class="text-[#6d608a] dark:text-gray-400 text-sm font-medium">Total Monthly Usage</p>
+<div class="flex items-end justify-between">
+<p class="text-[#131118] dark:text-white tracking-tight text-3xl font-bold">72%</p>
+<div class="flex items-center text-success bg-success/10 px-2 py-1 rounded-full text-xs font-bold">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+                        5% less than last month
+                    </div>
+</div>
+<!-- Mini visual for total budget -->
+<div class="mt-4 h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 72%;"></div>
+</div>
+</div>
+</div>
+<div class="px-4 pt-2">
+<h3 class="text-[#131118] dark:text-white text-lg font-bold leading-tight tracking-tight">Category Budgets</h3>
+</div>
+<!-- Budget Cards List -->
+<div class="flex flex-col gap-4 p-4">
+<!-- Category: Food (Warning State) -->
+<div class="bg-white dark:bg-[#1f1a2e] rounded-xl overflow-hidden border-l-[6px] border-warning shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="p-4">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-warning/10 flex items-center justify-center text-warning">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<h4 class="font-bold text-[#131118] dark:text-white">Food &amp; Treats</h4>
+<p class="text-xs text-[#6d608a] dark:text-gray-400">Monthly Allowance</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wider">Adjust</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-[#131118] dark:text-white">$120 of $150 spent</span>
+<span class="text-warning">80%</span>
+</div>
+<div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-warning rounded-full" style="width: 80%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-warning text-sm font-semibold">$30 remaining</p>
+<span class="text-[10px] text-gray-400">Renews in 5 days</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Healthcare (Danger/Over State) -->
+<div class="bg-white dark:bg-[#1f1a2e] rounded-xl overflow-hidden border-l-[6px] border-danger shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="p-4">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-danger/10 flex items-center justify-center text-danger">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div>
+<h4 class="font-bold text-[#131118] dark:text-white">Healthcare</h4>
+<p class="text-xs text-[#6d608a] dark:text-gray-400">Vaccines &amp; Checkups</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wider">Adjust</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-[#131118] dark:text-white font-bold">$210 of $200 spent</span>
+<span class="text-danger">105%</span>
+</div>
+<div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-danger rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-danger text-sm font-semibold">-$10 over budget</p>
+<span class="text-[10px] text-gray-400">Critical priority</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Toys & Leisure (Success State) -->
+<div class="bg-white dark:bg-[#1f1a2e] rounded-xl overflow-hidden border-l-[6px] border-primary shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="p-4">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">toys</span>
+</div>
+<div>
+<h4 class="font-bold text-[#131118] dark:text-white">Toys &amp; Leisure</h4>
+<p class="text-xs text-[#6d608a] dark:text-gray-400">Fun &amp; Games</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wider">Adjust</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm font-medium">
+<span class="text-[#131118] dark:text-white font-medium">$30 of $100 spent</span>
+<span class="text-success">30%</span>
+</div>
+<div class="h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-success rounded-full" style="width: 30%;"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="text-success text-sm font-semibold">$70 remaining</p>
+<span class="text-[10px] text-gray-400">On track</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Add New -->
+<button class="border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-xl p-6 flex flex-col items-center justify-center gap-2 hover:bg-white/50 dark:hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[#6d608a] text-3xl">add_circle</span>
+<p class="text-[#6d608a] font-semibold text-sm">Add New Category</p>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-background-dark/90 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 pb-safe">
+<div class="max-w-md mx-auto flex justify-around p-3">
+<a class="flex flex-col items-center gap-1 text-[#6d608a] dark:text-gray-400" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="text-[10px] font-bold">Pets</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-[10px] font-bold">Budgets</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#6d608a] dark:text-gray-400" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[10px] font-bold">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#6d608a] dark:text-gray-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Background Decoration -->
+<div class="fixed top-0 right-0 -z-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="fixed bottom-24 left-0 -z-10 w-48 h-48 bg-warning/5 rounded-full blur-3xl"></div>
+</body></html>
